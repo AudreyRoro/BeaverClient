@@ -5,14 +5,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Intent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PageAccueil extends ActionBarActivity {
 
-    TextView event1, event2, event3;
+    ListView listEvent;
     Button btnajoutevent;
 
 
@@ -22,9 +27,14 @@ public class PageAccueil extends ActionBarActivity {
         setContentView(R.layout.activity_page_accueil);
 
         btnajoutevent = (Button) findViewById(R.id.btnajoutevent);
-        event1 = (TextView) findViewById(R.id.event1);
-        event2 = (TextView) findViewById(R.id.event2);
-        event3 = (TextView) findViewById(R.id.event3);
+        listEvent = (ListView) findViewById(R.id.listEvent);
+
+        List<String> liste = new ArrayList<String>();
+        liste.add("Soirée du nouvel an");
+        liste.add("Crémaillère");
+
+        ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, liste);
+        listEvent.setAdapter(adaptateur);
 
         btnajoutevent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +45,8 @@ public class PageAccueil extends ActionBarActivity {
         });
 
     }
+
+
 
 
     @Override
