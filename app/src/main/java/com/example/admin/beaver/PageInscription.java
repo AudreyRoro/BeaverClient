@@ -3,12 +3,26 @@ package com.example.admin.beaver;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.admin.model.User;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class PageInscription extends ActionBarActivity {
 
@@ -16,8 +30,6 @@ public class PageInscription extends ActionBarActivity {
     EditText inscri_pseudo;
     EditText inscri_mail;
     EditText inscri_password;
-
-
 
 
     @Override
@@ -37,13 +49,21 @@ public class PageInscription extends ActionBarActivity {
            public void onClick(View v) {
                Intent intent = new Intent(PageInscription.this, PageConnexion.class); //lancer page connexion
                String pseudo = inscri_pseudo.getText().toString(); //récupérer pseudo
+               String mail = inscri_mail.getText().toString(); // récupérer mail
+               String password = inscri_password.getText().toString(); //récupérer mdp
 
-               startActivity(intent);
+               User newUser = new User(); //création utilisateur
+               newUser.setuMail(mail); //associer mail
+               newUser.setuPassword(password);//associer mdp
+               newUser.setuPseudo(pseudo);// associer pseudo
+               String url = ""; //url serveur
+               sendUser(url, newUser); // méthode pour envoyer en JSON les nouvelles modifs
+               startActivity(intent);//lancer l'intent qui lancer la page de connexion
            }
        });
     }
 
-    public static String POST(String url, Person person){
+    public static String sendUser(String url, User person){
         InputStream inputStream = null;
         String result = "";
         try {
@@ -58,9 +78,9 @@ public class PageInscription extends ActionBarActivity {
 
             // 3. build jsonObject
             JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("name", person.getName());
-            jsonObject.accumulate("country", person.getCountry());
-            jsonObject.accumulate("twitter", person.getTwitter());
+            jsonObject.accumulate("pseudo", person.getuPseudo());
+            jsonObject.accumulate("mdp", person.getuPassword());
+            jsonObject.accumulate("mail", person.getuMail());
 
             // 4. convert JSONObject to JSON to String
             json = jsonObject.toString();
@@ -97,6 +117,18 @@ public class PageInscription extends ActionBarActivity {
 
         // 11. return result
         return result;
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
     }
 
 
