@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Beaver</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_page_inscription">Inscription</string>
+    <string name="inscri_pseudo">Pseudo</string>
+    <string name="inscri_password">Mot de passe</string>
+    <string name="inscri_mail">Mail</string>
+    <string name="title_activity_page_creation_event">Nouvel Evénement</string>
+    <string name="title_activity_page_accueil">Accueil</string>
+
+</resources>
