@@ -43,7 +43,6 @@ public class PageAccueil extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
     }
 
 
