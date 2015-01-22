@@ -33,7 +33,7 @@ public class ServerConnection {
         url = "http://localhost:8080/";
     }
 
-   public JSONObject sendJSONObject (JSONObject jsonObject, String endUrl)
+    public JSONObject sendJSONObject (JSONObject jsonObject, String endUrl)
     {
         HttpParams myParams = new BasicHttpParams();
         HttpConnectionParams.setConnectionTimeout(myParams, 10000);
