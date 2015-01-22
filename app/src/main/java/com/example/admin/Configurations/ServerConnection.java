@@ -29,7 +29,7 @@ import java.io.InputStreamReader;
  */
 public class ServerConnection extends AsyncTask<JSONObject, Integer, JSONObject>{
 
-    private static String url = "http://localhost:8080/";
+    private static String url = "http://192.168.1.14:8080/";
     private static String endUrl ;
 
     public static String getEndUrl() {
