@@ -1,9 +1,18 @@
 package com.example.admin.model;
 
+import java.util.Set;
+
 /**
  * Created by admin on 07/01/15.
  */
 public class User {
+    private int uId;
+    private String uPseudo;
+    private String uPassword;
+    private String uMail;
+    private int uState;
+    private Set<Participant> participants;
+
     public int getuId() {
         return uId;
     }
@@ -44,10 +53,11 @@ public class User {
         this.uState = uState;
     }
 
-    private int uId;
-    private String uPseudo;
-    private String uPassword;
-    private String uMail;
-    private int uState;
+    public Set<Participant> getParticipants() {
+        return participants;
+    }
 
+    public void setParticipants(Set<Participant> participants) {
+        this.participants = participants;
+    }
 }

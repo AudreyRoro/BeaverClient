@@ -1,6 +1,7 @@
 package com.example.admin.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * Created by admin on 07/01/15.
@@ -12,6 +13,7 @@ public class Event {
     private Timestamp eCreationDate;
     private Timestamp eBeginDate;
     private Timestamp eEndDate;
+    private Set<Participant> participants;
 
     public int geteId() {
         return eId;
@@ -59,5 +61,13 @@ public class Event {
 
     public void seteEndDate(Timestamp eEndDate) {
         this.eEndDate = eEndDate;
+    }
+
+    public Set<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<Participant> participants) {
+        this.participants = participants;
     }
 }

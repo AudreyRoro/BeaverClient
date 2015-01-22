@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Beaver.iml" filepath="$PROJECT_DIR$/Beaver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BeaverClient.iml" filepath="$PROJECT_DIR$/BeaverClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
