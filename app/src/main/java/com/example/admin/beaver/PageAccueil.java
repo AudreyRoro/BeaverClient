@@ -64,7 +64,11 @@ public class PageAccueil extends Activity {
         listEvent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(PageAccueil.this, PageEvenement.class);
 
+                //int id = listEvent.getSelectedItem();
+                intent.putExtra("id", id );
+                startActivity(intent);
             }
         });
 

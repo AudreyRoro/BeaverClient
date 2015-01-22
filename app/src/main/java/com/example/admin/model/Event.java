@@ -71,14 +71,6 @@ public class Event {
         this.participants = participants;
     }
 
-    public Event (int id, String title){
-        id = this.eId;
-        title=this.eTitle;
-    }
 
-    @Override
-    public String toString(){
-        return this.eTitle;
-    }
 
 }

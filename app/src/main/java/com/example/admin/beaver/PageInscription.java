@@ -60,11 +60,15 @@ public class PageInscription extends ActionBarActivity {
                    jsonObject.put("uPseudo", newUser.getuPseudo());
                    jsonObject.put("uMail", newUser.getuMail());
                    jsonObject.put("uPassword", newUser.getuPassword());
+                   ServerConnection connection = new ServerConnection();
+                   connection.sendJSONObject(jsonObject, "");
 
 
                } catch (JSONException e) {
                    e.printStackTrace();
                }
+
+
 
                startActivity(intent);
 
