@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.model.User;
 
 import org.apache.http.HttpResponse;
@@ -17,6 +18,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -42,94 +44,41 @@ public class PageInscription extends ActionBarActivity {
         inscri_mail= (EditText) findViewById(R.id.inscri_mail);
         inscri_password= (EditText) findViewById(R.id.inscri_password);
 
-        /// BUT : au clic lancer la page de connexion et récupérer les données !!!!
 
        btnsave.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(PageInscription.this, PageConnexion.class); //lancer page connexion
-               String pseudo = inscri_pseudo.getText().toString(); //récupérer pseudo
-               String mail = inscri_mail.getText().toString(); // récupérer mail
-               String password = inscri_password.getText().toString(); //récupérer mdp
 
-               User newUser = new User(); //création utilisateur
-               newUser.setuMail(mail); //associer mail
-               newUser.setuPassword(password);//associer mdp
-               newUser.setuPseudo(pseudo);// associer pseudo
-               String url = ""; //url serveur
-               sendUser(url, newUser); // méthode pour envoyer en JSON les nouvelles modifs
-               startActivity(intent);//lancer l'intent qui lancer la page de connexion
+               User newUser = new User();
+               newUser.setuMail(inscri_mail.getText().toString());
+               newUser.setuPassword(inscri_password.getText().toString());
+               newUser.setuPseudo(inscri_pseudo.getText().toString());
+
+               JSONObject jsonObject = new JSONObject();
+               try {
+                   jsonObject.put("uPseudo", newUser.getuPseudo());
+                   jsonObject.put("uMail", newUser.getuMail());
+                   jsonObject.put("uPassword", newUser.getuPassword());
+
+
+               } catch (JSONException e) {
+                   e.printStackTrace();
+               }
+
+               startActivity(intent);
+
            }
        });
     }
 
-    public static String sendUser(String url, User person){
-        InputStream inputStream = null;
-        String result = "";
-        try {
 
-            // 1. create HttpClient
-            HttpClient httpclient = new DefaultHttpClient();
 
-            // 2. make POST request to the given URL
-            HttpPost httpPost = new HttpPost(url);
 
-            String json = "";
 
-            // 3. build jsonObject
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("pseudo", person.getuPseudo());
-            jsonObject.accumulate("mdp", person.getuPassword());
-            jsonObject.accumulate("mail", person.getuMail());
 
-            // 4. convert JSONObject to JSON to String
-            json = jsonObject.toString();
 
-            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
-            // ObjectMapper mapper = new ObjectMapper();
-            // json = mapper.writeValueAsString(person);
 
-            // 5. set json to StringEntity
-            StringEntity se = new StringEntity(json);
-
-            // 6. set httpPost Entity
-            httpPost.setEntity(se);
-
-            // 7. Set some headers to inform server about the type of the content
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-
-            // 8. Execute POST request to the given URL
-            HttpResponse httpResponse = httpclient.execute(httpPost);
-
-            // 9. receive response as inputStream
-            inputStream = httpResponse.getEntity().getContent();
-
-            // 10. convert inputstream to string
-            if(inputStream != null)
-                result = convertInputStreamToString(inputStream);
-            else
-                result = "Did not work!";
-
-        } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
-        }
-
-        // 11. return result
-        return result;
-    }
-
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        return result;
-
-    }
 
 
     @Override

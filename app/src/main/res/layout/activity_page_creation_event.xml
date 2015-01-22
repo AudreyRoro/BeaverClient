@@ -103,8 +103,7 @@
         <CalendarView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
-            android:id="@+id/calendarView"
+            android:id="@+id/calendrier_debut"
             android:layout_marginLeft="10dp"
             android:clickable="true" />
 
@@ -126,13 +125,10 @@
             android:text="Date de fin"
             android:id="@+id/textView11" />
 
-        <EditText
+        <CalendarView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editText5"
-            android:layout_weight="1" />
+            android:id="@+id/calendrier_fin" />
 
     </LinearLayout>
 
