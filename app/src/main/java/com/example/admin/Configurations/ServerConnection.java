@@ -1,5 +1,7 @@
 package com.example.admin.Configurations;
 
+import android.os.AsyncTask;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -25,30 +27,41 @@ import java.io.InputStreamReader;
 /**
  * Created by Marianne on 22/01/15.
  */
-public class ServerConnection {
+public class ServerConnection extends AsyncTask<JSONObject, Integer, JSONObject>{
 
-    private static String url;
+    private static String url = "http://localhost:8080/";
+    private static String endUrl ;
 
-    public ServerConnection(){
-        url = "http://localhost:8080/";
+    public static String getEndUrl() {
+        return endUrl;
     }
 
-    public JSONObject sendJSONObject (JSONObject jsonObject, String endUrl)
+    public static void setEndUrl(String endUrl) {
+        ServerConnection.endUrl = endUrl;
+    }
+
+    @Override
+    protected JSONObject doInBackground(JSONObject... params) {
+        sendJSONObject(params[0], url + endUrl);
+        return null;
+    }
+
+
+
+    public static JSONObject sendJSONObject (JSONObject jsonObject, String finalUrl)
     {
-        HttpParams myParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(myParams, 10000);
-        HttpConnectionParams.setSoTimeout(myParams, 10000);
-        HttpClient httpclient = new DefaultHttpClient(myParams);
+        HttpClient httpclient = new DefaultHttpClient();
         String json= jsonObject.toString();
 
         try {
 
-            HttpPost httppost = new HttpPost(url + endUrl);
-            httppost.setHeader("Content-type", "application/json");
+            HttpPost httppost = new HttpPost(finalUrl);
 
             StringEntity se = new StringEntity(jsonObject.toString());
-            se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
             httppost.setEntity(se);
+            httppost.setHeader("Accept", "application/json");
+            httppost.setHeader("Content-type", "application/json");
 
             HttpResponse response = httpclient.execute(httppost);
             String temp = EntityUtils.toString(response.getEntity());
@@ -60,6 +73,7 @@ public class ServerConnection {
         } catch (ClientProtocolException e) {
 
         } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }
