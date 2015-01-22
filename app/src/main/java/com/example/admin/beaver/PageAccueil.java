@@ -47,9 +47,9 @@ public class PageAccueil extends Activity {
 
         ArrayList<Event> liste = new ArrayList<Event>();
 
-        EventAdapter adaptateur = new EventAdapter(this,liste);
+        //EventAdapter adaptateur = new EventAdapter(this,liste);
 
-        listEvent.setAdapter(adaptateur);
+        //listEvent.setAdapter(adaptateur);
 
 
 
@@ -76,11 +76,6 @@ public class PageAccueil extends Activity {
     private Context mContext;
     private LayoutInflater mInflater;
 
-    public EventAdapter(Context context, List<Event> liste){
-
-    }
-
-
 
     public static String getEvent(String url, Event event) {
         StringBuilder builder = new StringBuilder();
@@ -99,7 +94,7 @@ public class PageAccueil extends Activity {
                     builder.append(line);
                 }
             } else {
-                Log.e(ParseJSON.class.toString(), "Failed to download file");
+                //Log.e(ParseJSON.class.toString(), "Failed to download file");
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();

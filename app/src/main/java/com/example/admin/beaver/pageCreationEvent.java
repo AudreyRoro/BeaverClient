@@ -4,11 +4,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.admin.model.Event;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class pageCreationEvent extends ActionBarActivity {
 
-
+    Button btnok;
+    EditText titre, description;
 
 
 
@@ -16,6 +25,26 @@ public class pageCreationEvent extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_creation_event);
+
+        btnok=(Button) findViewById(R.id.btncreate);
+        titre = (EditText) findViewById(R.id.titre_event);
+        description = (EditText) findViewById(R.id.description_event);
+
+        btnok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Event event = new Event();
+                event.seteTitle(titre.getText().toString());
+                event.seteDescription(description.getText().toString());
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("eTitle", event.geteTitle());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
