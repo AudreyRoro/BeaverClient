@@ -28,6 +28,22 @@
             android:name=".PageAccueil"
             android:label="@string/title_activity_page_accueil" >
         </activity>
+        <activity
+            android:name=".PageEvenement"
+            android:label="@string/title_activity_page_evenement" >
+        </activity>
+        <activity
+            android:name=".PageDette"
+            android:label="@string/title_activity_page_dette" >
+        </activity>
+        <activity
+            android:name=".PageAjoutParticipant"
+            android:label="@string/title_activity_page_ajout_participant" >
+        </activity>
+        <activity
+            android:name=".PageRemboursement"
+            android:label="@string/title_activity_page_remboursement" >
+        </activity>
     </application>
 
 </manifest>
