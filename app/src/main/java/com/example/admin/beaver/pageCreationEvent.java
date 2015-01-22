@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.model.Event;
 
 import org.json.JSONException;
@@ -41,10 +40,6 @@ public class pageCreationEvent extends ActionBarActivity {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("eTitle", event.geteTitle());
-                    jsonObject.put("eDescription", event.geteDescription());
-                    ServerConnection connection = new ServerConnection();
-                    connection.setEndUrl("Event/createEvent");
-                    connection.execute(jsonObject);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

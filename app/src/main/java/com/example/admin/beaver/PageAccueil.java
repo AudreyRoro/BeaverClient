@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -35,77 +36,40 @@ import java.util.List;
 public class PageAccueil extends Activity {
 
     ListView listEvent;
-    Button btnajoutevent;
+    Button btnajout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_accueil);
 
-        btnajoutevent = (Button) findViewById(R.id.btnajoutevent);
+        btnajout = (Button) findViewById(R.id.btnajoutevent);
         listEvent = (ListView) findViewById(R.id.list);
 
-        ArrayList<Event> liste = new ArrayList<Event>();
+        Event[] values = {};
 
-        //EventAdapter adaptateur = new EventAdapter(this,liste);
-
-        //listEvent.setAdapter(adaptateur);
-
-
+        ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(this,
+                android.R.layout.simple_list_item_1, values);
+        listEvent.setAdapter(adapter);
 
 
-
-
-
-
-
-
-
-        btnajoutevent.setOnClickListener(new View.OnClickListener() {
+        btnajout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PageAccueil.this, pageCreationEvent.class); //permet de passer à la page de création d'un event
+                Intent intent = new Intent(PageAccueil.this, pageCreationEvent.class);
                 startActivity(intent);
+            }
+        });
+
+        listEvent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
             }
         });
 
 
             }
-
-    private List<Event> mListE;
-    private Context mContext;
-    private LayoutInflater mInflater;
-
-
-    public static String getEvent(String url, Event event) {
-        StringBuilder builder = new StringBuilder();
-        HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url);
-        try {
-            HttpResponse response = client.execute(httpGet);
-            StatusLine statusLine = response.getStatusLine();
-            int statusCode = statusLine.getStatusCode();
-            if (statusCode == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream content = entity.getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(content));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line);
-                }
-            } else {
-                //Log.e(ParseJSON.class.toString(), "Failed to download file");
-            }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return builder.toString();
-    }
-
-
-
 
 
     @Override
