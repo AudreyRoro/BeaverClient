@@ -70,15 +70,4 @@ public class Event {
     public void setParticipants(Set<Participant> participants) {
         this.participants = participants;
     }
-
-    public Event (int id, String title){
-        id = this.eId;
-        title=this.eTitle;
-    }
-
-    @Override
-    public String toString(){
-        return this.eTitle;
-    }
-
 }
