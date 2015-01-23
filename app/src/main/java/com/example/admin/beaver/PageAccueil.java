@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.content.Intent;
 
+import com.example.admin.Configurations.GetAsyncTask;
 import com.example.admin.model.Event;
 
 import org.apache.http.HttpEntity;
@@ -45,6 +46,11 @@ public class PageAccueil extends Activity {
 
         btnajout = (Button) findViewById(R.id.btnajoutevent);
         listEvent = (ListView) findViewById(R.id.list);
+
+
+        GetAsyncTask getTask = new GetAsyncTask();
+        getTask.setEndUrl("Event/getByUser");
+        getTask.execute("Event/getByUser");
 
         Event[] values = {};
 
