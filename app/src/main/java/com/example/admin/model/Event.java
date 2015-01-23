@@ -71,4 +71,9 @@ public class Event {
         this.participants = participants;
     }
 
+    @Override
+    public String toString(){
+        return this.eTitle;
+    }
 }
+

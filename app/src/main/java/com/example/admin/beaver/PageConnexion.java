@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.model.User;
 
 import org.apache.http.HttpResponse;
@@ -58,7 +59,8 @@ public class PageConnexion extends ActionBarActivity {
                 try {
                     jsonObject.put("uPseudo", user.getuPseudo());
                     jsonObject.put("uPassword", user.getuPassword());
-
+                    ServerConnection connection = new ServerConnection();
+                    connection.execute(jsonObject);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

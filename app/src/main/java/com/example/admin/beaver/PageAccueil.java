@@ -2,6 +2,7 @@ package com.example.admin.beaver;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,10 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,16 +51,31 @@ public class PageAccueil extends Activity {
 
         btnajout = (Button) findViewById(R.id.btnajoutevent);
         listEvent = (ListView) findViewById(R.id.list);
+        ObjectMapper mapper = new ObjectMapper();
 
-
+        List<Event> eventList = new ArrayList<Event>();
         GetAsyncTask getTask = new GetAsyncTask();
         getTask.setEndUrl("Event/getByUser");
-        getTask.execute("Event/getByUser");
+        try {
+            JSONArray array = new JSONArray(getTask.execute("Event/getByUser"));
+            for(int i=0; i<array.length();i++){
+                JSONObject obj= null;
+                obj = array.getJSONObject(i);
 
-        Event[] values = {};
+                try {
+                    eventList.add(mapper.readValue(obj.toString(), Event.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(this,
-                android.R.layout.simple_list_item_1, values);
+                android.R.layout.simple_list_item_1, eventList);
         listEvent.setAdapter(adapter);
 
 
