@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.admin.model.Event;
 import com.example.admin.model.User;
@@ -31,13 +32,18 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
 
     private String url = "http://10.0.2.2:8080/User/getUsers";
     private String result ;
+    private String participant;
     private Activity activity;
+    private TextView textView;
     private List<User> userList;
+
     private final Logger log = Logger.getLogger(HttpGetUsers.class);
     @Override
     protected String doInBackground(Object... params) {
-        this.userList = (List<User>) params[0];
+        this.participant = (String) params[0];
         this.activity = (Activity) params[1];
+        this.textView= (TextView) params [2];
+
         return getInputStreamFromUrl(url);
     }
 
@@ -86,6 +92,15 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
     {
         BasicConfigurator.configure();
         log.info("Users number : " + userList.size());
+
+        for(int i=0; i<userList.size() ; i++ ){
+            //if(participant = userList<i>){
+
+            //}
+
+        }
+
+
 
     }
 }

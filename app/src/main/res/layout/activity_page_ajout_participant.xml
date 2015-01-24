@@ -30,5 +30,14 @@
             android:layout_marginLeft="200dp"
             android:clickable="true" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/reponse"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp" />
+
     </LinearLayout>
 </RelativeLayout>

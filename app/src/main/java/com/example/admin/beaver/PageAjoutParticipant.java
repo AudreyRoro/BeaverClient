@@ -7,12 +7,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.admin.Configurations.HttpGetUsers;
+
+import org.w3c.dom.Text;
 
 
 public class PageAjoutParticipant extends ActionBarActivity {
 
     Button btn_recherche;
     EditText participant;
+    TextView reponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,20 +27,21 @@ public class PageAjoutParticipant extends ActionBarActivity {
 
         btn_recherche = (Button) findViewById(R.id.button_recherche);
         participant = (EditText) findViewById(R.id.participant);
+        reponse = (TextView) findViewById(R.id.reponse);
 
         btn_recherche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String recherche = participant.getText().toString();
-                rechercheParticipant(recherche);
+                rechercheParticipant(recherche, reponse);
 
             }
         });
 
     }
 
-    public void rechercheParticipant( String participant){
-
+    public void rechercheParticipant( String user, TextView textView){
+        new HttpGetUsers().execute(user, this, textView);
 
     }
 
