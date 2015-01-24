@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.model.Event;
+import com.example.admin.model.Participant;
 import com.example.admin.model.User;
 
 import org.apache.http.HttpResponse;
@@ -94,10 +95,12 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
         log.info("Users number : " + userList.size());
 
         boolean exists = false;
+        Participant newParticipant = new Participant();
 
         for(User user: userList){
             if(user.getuPseudo() == participant){
                 exists = true;
+                newParticipant.setUser(user);
             }
         }
 
