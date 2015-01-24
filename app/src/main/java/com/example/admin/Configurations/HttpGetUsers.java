@@ -101,8 +101,11 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
             }
         }
 
-
-
-
+        if(exists){
+            textView.setText("L'utilisateur existe et a été ajouté à l'évenement");
+        }
+        else{
+            textView.setText("L'utilisateur n'existe pas");
+        }
     }
 }
