@@ -88,11 +88,4 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
         log.info("Users number : " + userList.size());
 
     }
-
-
-
-
-
-
-
 }

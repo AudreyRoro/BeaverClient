@@ -19,7 +19,7 @@
             android:inputType="textPersonName"
             android:text="Nom du participant"
             android:ems="10"
-            android:id="@+id/editText" />
+            android:id="@+id/participant" />
 
         <Button
             android:layout_width="wrap_content"

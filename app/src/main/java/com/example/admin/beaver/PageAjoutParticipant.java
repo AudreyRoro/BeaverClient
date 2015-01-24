@@ -4,18 +4,36 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class PageAjoutParticipant extends ActionBarActivity {
 
-
-
+    Button btn_recherche;
+    EditText participant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_ajout_participant);
 
+        btn_recherche = (Button) findViewById(R.id.button_recherche);
+        participant = (EditText) findViewById(R.id.participant);
+
+        btn_recherche.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String recherche = participant.getText().toString();
+                rechercheParticipant(recherche);
+
+            }
+        });
+
+    }
+
+    public void rechercheParticipant( String participant){
 
 
     }
