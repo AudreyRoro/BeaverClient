@@ -69,4 +69,9 @@ public class Participant {
     public void setReceivers(Set<Debt> receivers) {
         this.receivers = receivers;
     }
+
+    @Override
+    public String toString(){
+        return getUser().getuPseudo();
+    }
 }

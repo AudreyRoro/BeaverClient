@@ -1,5 +1,6 @@
 package com.example.admin.beaver;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,15 +8,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.admin.model.Event;
+import com.example.admin.model.Participant;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PageEvenement extends ActionBarActivity {
@@ -50,20 +55,20 @@ public class PageEvenement extends ActionBarActivity {
         }
 
         log.info("Nom de l'evenement : " + event.geteTitle());
-
+        List<Participant> participantList = new ArrayList<>();
+        participantList.addAll(event.getParticipants());
 
         ListView list = (ListView) findViewById(R.id.liste_participants);
+        ArrayAdapter<Participant> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, participantList);
+        list.setAdapter(adapter);
 
-
-        //setContentView(list);
-/*        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent (PageEvenement.this, PageDette.class);
-            startActivity(intent);
-
+                startActivity(intent);
             }
-        });*/
+        });
 
 
     }

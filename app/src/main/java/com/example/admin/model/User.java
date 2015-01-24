@@ -60,4 +60,6 @@ public class User {
     public void setParticipants(Set<Participant> participants) {
         this.participants = participants;
     }
+
+
 }

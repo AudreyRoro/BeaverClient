@@ -88,5 +88,6 @@ public class HttpGetEvents extends AsyncTask<Object, Void, String>{
         log.info("Events number : " + eventList.size());
         ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(activity, android.R.layout.simple_list_item_1, eventList);
         listView.setAdapter(adapter);
+
     }
 }
