@@ -93,12 +93,14 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
         BasicConfigurator.configure();
         log.info("Users number : " + userList.size());
 
-        for(int i=0; i<userList.size() ; i++ ){
-            //if(participant = userList<i>){
+        boolean exists = false;
 
-            //}
-
+        for(User user: userList){
+            if(user.getuPseudo() == participant){
+                exists = true;
+            }
         }
+
 
 
 
