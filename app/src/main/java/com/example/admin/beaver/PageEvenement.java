@@ -10,10 +10,17 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.admin.model.Event;
+
+import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
+
 
 public class PageEvenement extends ActionBarActivity {
 
-
+    private final Logger log = Logger.getLogger(PageEvenement.class);
     Button btnajout;
 
     @Override
@@ -30,16 +37,33 @@ public class PageEvenement extends ActionBarActivity {
             }
         });
 
+
+
+        Intent intent = getIntent();
+        Event event = new Event();
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            event = mapper.readValue(intent.getStringExtra("selectedEvent"), Event.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        log.info("Nom de l'evenement : " + event.geteTitle());
+
+
         ListView list = (ListView) findViewById(R.id.liste_participants);
-        setContentView(list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+        //setContentView(list);
+/*        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent (PageEvenement.this, PageDette.class);
             startActivity(intent);
 
             }
-        });
+        });*/
 
 
     }

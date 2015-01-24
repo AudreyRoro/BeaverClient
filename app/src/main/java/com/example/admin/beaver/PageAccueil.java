@@ -2,6 +2,7 @@ package com.example.admin.beaver;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,9 +13,13 @@ import android.content.Intent;
 
 
 import com.example.admin.Configurations.HttpGetEvents;
+import com.example.admin.model.Event;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
 
 
 public class PageAccueil extends Activity {
@@ -46,10 +51,24 @@ public class PageAccueil extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(PageAccueil.this, PageEvenement.class);
+                Event selectedEvent = (Event) parent.getItemAtPosition(position);
+                ObjectMapper mapper = new ObjectMapper();
+                String jsonSelectedEvent = "";
+                try {
+                    jsonSelectedEvent = mapper.writeValueAsString(selectedEvent);
+                    log.info("jsonSelectedEvent : " + jsonSelectedEvent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                log.info("Evenement choisi : " + selectedEvent.geteTitle());
 
-                //int id = listEvent.getSelectedItem();
-                intent.putExtra("id", id );
-                startActivity(intent);
+                if(jsonSelectedEvent != "") {
+                    intent.putExtra("selectedEvent", jsonSelectedEvent);
+                    startActivity(intent);
+                } else
+                {
+                    log.info("unable to map event to jsonObject");
+                }
             }
         });
         new HttpGetEvents().execute(this.listEvent, this);
