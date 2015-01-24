@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.model.User;
@@ -25,6 +26,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class PageInscription extends ActionBarActivity {
 
@@ -32,6 +36,7 @@ public class PageInscription extends ActionBarActivity {
     EditText inscri_pseudo;
     EditText inscri_mail;
     EditText inscri_password;
+
 
 
     @Override
@@ -52,7 +57,11 @@ public class PageInscription extends ActionBarActivity {
 
                User newUser = new User();
                newUser.setuMail(inscri_mail.getText().toString());
-               newUser.setuPassword(inscri_password.getText().toString());
+               try {
+                   newUser.setuPassword(SHA1((inscri_password.getText().toString())));
+               } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                   e.printStackTrace();
+               }
                newUser.setuPseudo(inscri_pseudo.getText().toString());
 
                JSONObject jsonObject = new JSONObject();
@@ -61,6 +70,7 @@ public class PageInscription extends ActionBarActivity {
                    jsonObject.put("uMail", newUser.getuMail());
                    jsonObject.put("uPassword", newUser.getuPassword());
                    ServerConnection connection = new ServerConnection();
+                   connection.setEndUrl("User/add");
                    connection.execute(jsonObject);
 
 
@@ -74,8 +84,32 @@ public class PageInscription extends ActionBarActivity {
        });
     }
 
+    private static String convertToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            int halfbyte = (data[i] >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                if ((0 <= halfbyte) && (halfbyte <= 9)) {
+                    buf.append((char) ('0' + halfbyte));
+                }
+                else {
+                    buf.append((char) ('a' + (halfbyte - 10)));
+                }
+                halfbyte = data[i] & 0x0F;
+            } while(two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
 
 
+    public static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException  {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        byte[] sha1hash = new byte[40];
+        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        sha1hash = md.digest();
+        return convertToHex(sha1hash);
+    }
 
 
 
