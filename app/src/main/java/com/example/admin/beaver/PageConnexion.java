@@ -1,6 +1,7 @@
 package com.example.admin.beaver;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.model.User;
@@ -25,6 +27,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 
 public class PageConnexion extends ActionBarActivity {
@@ -44,14 +51,36 @@ public class PageConnexion extends ActionBarActivity {
         btn_inscription=(Button) findViewById(R.id.btn_inscription);
         connect_password=(EditText) findViewById(R.id.connect_password);
         connect_pseudo=(EditText) findViewById(R.id.connect_pseudo);
-
+        SharedPreferences preferences;
+        final SharedPreferences.Editor editor;
+        final String KEY_LOGIN_NAME = "LoginStatus";
+        preferences = getSharedPreferences("PREF_NAME", MODE_PRIVATE);
+        editor = preferences.edit();
 
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(PageConnexion.this, PageAccueil.class);
 
-                User user=new User();
+                String pseudo = connect_pseudo.getText().toString();
+                try {
+                    String password = SHA1(connect_password.getText().toString());
+                } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
+                if ((!pseudo.equals("")) && (!connect_password.getText().toString().equals(""))) {
+                   Toast.makeText(getApplicationContext(), "Connexion réussie", LENGTH_LONG).show();
+                   editor.putBoolean(KEY_LOGIN_NAME, true);
+                   editor.commit();
+                   startActivity(intent);
+               }
+                   else{
+                    Toast.makeText(getApplicationContext(),"Identifiants invalides",LENGTH_LONG).show();
+                }
+
+     /*           User user=new User();
                 user.setuPseudo(connect_pseudo.getText().toString());
                 user.setuPassword(connect_password.getText().toString());
 
@@ -65,9 +94,8 @@ public class PageConnexion extends ActionBarActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+*/
 
-
-                startActivity(intent);
             }
         });
 
@@ -82,7 +110,32 @@ public class PageConnexion extends ActionBarActivity {
 
     }
 
+    private static String convertToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            int halfbyte = (data[i] >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                if ((0 <= halfbyte) && (halfbyte <= 9)) {
+                    buf.append((char) ('0' + halfbyte));
+                }
+                else {
+                    buf.append((char) ('a' + (halfbyte - 10)));
+                }
+                halfbyte = data[i] & 0x0F;
+            } while(two_halfs++ < 1);
+        }
+        return buf.toString();
+    }
 
+
+    public static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        byte[] sha1hash = new byte[40];
+        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        sha1hash = md.digest();
+        return convertToHex(sha1hash);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
