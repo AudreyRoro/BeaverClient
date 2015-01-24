@@ -8,10 +8,16 @@ import android.view.MenuItem;
 
 public class PageAjoutParticipant extends ActionBarActivity {
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_ajout_participant);
+
+
+
     }
 
 
