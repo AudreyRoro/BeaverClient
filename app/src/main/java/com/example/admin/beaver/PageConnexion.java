@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.admin.Configurations.ServerConnection;
+import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.User;
 
 import org.apache.http.HttpResponse;
@@ -40,22 +41,19 @@ public class PageConnexion extends ActionBarActivity {
     Button btn_inscription;
     EditText connect_pseudo;
     EditText connect_password;
+    SessionManager session;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_connexion);
-
+        session = new SessionManager(getApplicationContext());
         btnok=(Button) findViewById(R.id.btnok);
         btn_inscription=(Button) findViewById(R.id.btn_inscription);
         connect_password=(EditText) findViewById(R.id.connect_password);
         connect_pseudo=(EditText) findViewById(R.id.connect_pseudo);
-        SharedPreferences preferences;
-        final SharedPreferences.Editor editor;
-        final String KEY_LOGIN_NAME = "LoginStatus";
-        preferences = getSharedPreferences("PREF_NAME", MODE_PRIVATE);
-        editor = preferences.edit();
+
 
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +70,8 @@ public class PageConnexion extends ActionBarActivity {
 
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("uPseudo", pseudo);
-                    jsonObject.put("uPassword", password);
+                    jsonObject.put("pseudo", pseudo);
+                    jsonObject.put("password", password);
                     ServerConnection connection = new ServerConnection();
                     connection.setEndUrl("User/login");
                     connection.execute(jsonObject);
@@ -87,29 +85,14 @@ public class PageConnexion extends ActionBarActivity {
                 /* Affichage "connexion réussie" ou "échec" */
                 if ((!pseudo.equals("")) && (!connect_password.getText().toString().equals(""))) {
                    Toast.makeText(getApplicationContext(), "Connexion réussie", LENGTH_LONG).show();
-                   editor.putBoolean(KEY_LOGIN_NAME, true);
-                   editor.commit();
+                   session.createLoginSession(1, pseudo);
+
                    startActivity(intent);
                }
                    else{
                     Toast.makeText(getApplicationContext(),"Identifiants invalides",LENGTH_LONG).show();
                 }
 
-     /*           User user=new User();
-                user.setuPseudo(connect_pseudo.getText().toString());
-                user.setuPassword(connect_password.getText().toString());
-
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("uPseudo", user.getuPseudo());
-                    jsonObject.put("uPassword", user.getuPassword());
-                    ServerConnection connection = new ServerConnection();
-                    connection.execute(jsonObject);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-*/
 
             }
         });
