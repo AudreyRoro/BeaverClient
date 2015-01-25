@@ -27,24 +27,17 @@ public class PageEvenement extends ActionBarActivity {
 
     private final Logger log = Logger.getLogger(PageEvenement.class);
     Button btnajout;
+    private Intent intent ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_evenement);
 
-        btnajout = (Button) findViewById(R.id.btn_ajout);
-        btnajout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PageEvenement.this, PageAjoutParticipant.class);
-                startActivity(intent);
-            }
-        });
 
 
 
-        Intent intent = getIntent();
+        intent = getIntent();
         Event event = new Event();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -55,6 +48,7 @@ public class PageEvenement extends ActionBarActivity {
         }
 
         log.info("Nom de l'evenement : " + event.geteTitle());
+
         List<Participant> participantList = new ArrayList<>();
         participantList.addAll(event.getParticipants());
 
@@ -71,6 +65,15 @@ public class PageEvenement extends ActionBarActivity {
         });
 
 
+        btnajout = (Button) findViewById(R.id.btn_ajout);
+        btnajout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent participantIntent = new Intent(PageEvenement.this, PageAjoutParticipant.class);
+                participantIntent.putExtra("selectedEvent", intent.getStringExtra("selectedEvent"));
+                startActivity(participantIntent);
+            }
+        });
     }
 
 

@@ -51,7 +51,6 @@ public class ServerConnection extends AsyncTask<JSONObject, Integer, JSONObject>
     public static JSONObject sendJSONObject (JSONObject jsonObject, String finalUrl)
     {
         HttpClient httpclient = new DefaultHttpClient();
-        String json= jsonObject.toString();
 
         try {
 

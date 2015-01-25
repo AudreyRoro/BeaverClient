@@ -34,10 +34,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
+            android:text=""
             android:id="@+id/reponse"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp" />
 
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/list_addParticipants"
+            android:layout_below="@+id/linearLayout11"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="40dp"
+            android:headerDividersEnabled="false" />
+
+
     </LinearLayout>
+
+
 </RelativeLayout>

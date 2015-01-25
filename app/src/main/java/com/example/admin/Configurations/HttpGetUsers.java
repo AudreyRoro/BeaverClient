@@ -31,19 +31,24 @@ import java.util.List;
  */
 public class HttpGetUsers extends AsyncTask<Object, Void, String> {
 
-    private String url = "http://10.0.2.2:8080/User/getUsers";
+    private String url = "http://10.0.2.2:8080/User/getAll";
     private String result ;
     private String participant;
     private Activity activity;
     private TextView textView;
     private List<User> userList;
+    private Event event;
+    private ListView listView;
 
     private final Logger log = Logger.getLogger(HttpGetUsers.class);
     @Override
     protected String doInBackground(Object... params) {
         this.participant = (String) params[0];
-        this.activity = (Activity) params[1];
-        this.textView= (TextView) params [2];
+        this.textView= (TextView) params [1];
+        this.event = (Event) params[2];
+        this.activity = (Activity) params[3];
+        this.listView = (ListView) params[4];
+
 
         return getInputStreamFromUrl(url);
     }
@@ -98,17 +103,26 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
         Participant newParticipant = new Participant();
 
         for(User user: userList){
-            if(user.getuPseudo() == participant){
+            if(user.getuPseudo().equals(participant)){
                 exists = true;
                 newParticipant.setUser(user);
+                newParticipant.setEvent(event);
             }
         }
 
         if(exists){
+            //Ajout d'un nouvel evenement
+            addParticipant(newParticipant);
             textView.setText("L'utilisateur existe et a été ajouté à l'évenement");
         }
         else{
             textView.setText("L'utilisateur n'existe pas");
         }
+    }
+
+    private boolean addParticipant(Participant participant)
+    {
+        new HttpPostParticipant().execute(participant, activity, listView );
+        return false;
     }
 }
