@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Event;
 import com.example.admin.model.Participant;
 
@@ -28,13 +29,16 @@ public class PageEvenement extends ActionBarActivity {
     private final Logger log = Logger.getLogger(PageEvenement.class);
     Button btnajout;
     private Intent intent ;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_evenement);
 
-
+        session = new SessionManager(getApplicationContext());
+        String session_pseudo = session.getSessionPseudo();
+        int session_id = session.getSessionID();
 
 
         intent = getIntent();

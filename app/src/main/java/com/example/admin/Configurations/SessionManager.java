@@ -89,8 +89,8 @@ public class SessionManager {
     /**
      * Get stored session data
      */
-    public String getSessionID() {
-        return pref.getString(KEY_ID, "");
+    public int getSessionID() {
+        return pref.getInt(KEY_ID, 0);
     }
 
     public String getSessionPseudo() {

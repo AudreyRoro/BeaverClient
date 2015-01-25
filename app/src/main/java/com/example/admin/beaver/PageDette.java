@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.admin.Configurations.SessionManager;
+
 
 public class PageDette extends ActionBarActivity {
 
+    SessionManager session;
 
     
 
@@ -17,7 +20,9 @@ public class PageDette extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_dette);
 
-
+        session = new SessionManager(getApplicationContext());
+        String session_pseudo = session.getSessionPseudo();
+        int session_id = session.getSessionID();
 
 
 

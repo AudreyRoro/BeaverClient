@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.admin.Configurations.ServerConnection;
+import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Event;
 
 import org.json.JSONException;
@@ -19,13 +20,17 @@ public class pageCreationEvent extends ActionBarActivity {
 
     Button btnok;
     EditText titre, description;
-
+    SessionManager session;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_creation_event);
+
+        session = new SessionManager(getApplicationContext());
+        int session_id = session.getSessionID();
+        String session_pseudo = session.getSessionPseudo();
 
         btnok=(Button) findViewById(R.id.btncreate);
         titre = (EditText) findViewById(R.id.titre_event);

@@ -9,9 +9,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.content.Intent;
+import android.widget.TextView;
 
 
 import com.example.admin.Configurations.HttpGetEvents;
+import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Event;
 
 import org.apache.log4j.BasicConfigurator;
@@ -26,7 +28,9 @@ public class PageAccueil extends Activity {
     private final Logger log = Logger.getLogger(PageAccueil.class);
     private ListView listEvent;
     private Button btnajout;
+    private TextView connectedUserText;
     private String className ;
+    SessionManager session;
 
     @Override
 
@@ -37,6 +41,12 @@ public class PageAccueil extends Activity {
         setContentView(R.layout.activity_page_accueil);
         this.listEvent = (ListView) findViewById(R.id.list);
         this.btnajout = (Button) findViewById(R.id.btnajoutevent);
+        this.connectedUserText = (TextView) findViewById(R.id.connectedUserTextView);
+
+        session = new SessionManager(getApplicationContext());
+        String session_pseudo = session.getSessionPseudo();
+        int session_id = session.getSessionID();
+        connectedUserText.setText(session_pseudo);
 
         btnajout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.Configurations.HttpGetUsers;
+import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Event;
 import com.example.admin.model.Participant;
 
@@ -33,11 +34,16 @@ public class PageAjoutParticipant extends ActionBarActivity {
     Event event;
     ListView listView;
     Activity activity;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_ajout_participant);
+
+        session = new SessionManager(getApplicationContext());
+        String session_pseudo = session.getSessionPseudo();
+        int session_id = session.getSessionID();
 
         btn_recherche = (Button) findViewById(R.id.button_recherche);
         participant = (EditText) findViewById(R.id.participant);
