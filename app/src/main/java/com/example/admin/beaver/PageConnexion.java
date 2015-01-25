@@ -63,13 +63,28 @@ public class PageConnexion extends ActionBarActivity {
                 Intent intent=new Intent(PageConnexion.this, PageAccueil.class);
 
                 String pseudo = connect_pseudo.getText().toString();
+                String password = "";
                 try {
-                    String password = SHA1(connect_password.getText().toString());
+                    password = SHA1(connect_password.getText().toString());
                 } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
 
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("uPseudo", pseudo);
+                    jsonObject.put("uPassword", password);
+                    ServerConnection connection = new ServerConnection();
+                    connection.setEndUrl("User/login");
+                    connection.execute(jsonObject);
 
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                /* Affichage "connexion réussie" ou "échec" */
                 if ((!pseudo.equals("")) && (!connect_password.getText().toString().equals(""))) {
                    Toast.makeText(getApplicationContext(), "Connexion réussie", LENGTH_LONG).show();
                    editor.putBoolean(KEY_LOGIN_NAME, true);
