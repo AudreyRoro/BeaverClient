@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.Configurations.SessionManager;
@@ -20,6 +21,7 @@ public class pageCreationEvent extends ActionBarActivity {
 
     Button btnok;
     EditText titre, description;
+    TextView connectedUserText;
     SessionManager session;
 
 
@@ -35,6 +37,9 @@ public class pageCreationEvent extends ActionBarActivity {
         btnok=(Button) findViewById(R.id.btncreate);
         titre = (EditText) findViewById(R.id.titre_event);
         description = (EditText) findViewById(R.id.description_event);
+        connectedUserText = (TextView) findViewById(R.id.connectedUserTextView);
+        connectedUserText.setText(session_pseudo);
+
 
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override
