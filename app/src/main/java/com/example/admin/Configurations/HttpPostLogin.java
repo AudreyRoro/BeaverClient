@@ -1,59 +1,48 @@
 package com.example.admin.Configurations;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.example.admin.model.User;
+import com.example.admin.beaver.PageAccueil;
+import com.example.admin.beaver.PageConnexion;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
- * Created by Marianne on 22/01/15.
+ * Created by ACER on 26/01/2015.
  */
-public class ServerConnection extends AsyncTask<JSONObject, Integer, JSONObject>{
+public class HttpPostLogin extends AsyncTask<JSONObject, Integer, JSONObject> {
 
     private static String url = "http://192.168.43.148:8080/";
-    private static String endUrl ;
+    private static String endUrl;
 
     public static String getEndUrl() {
         return endUrl;
     }
 
     public static void setEndUrl(String endUrl) {
-        ServerConnection.endUrl = endUrl;
+        HttpPostLogin.endUrl = endUrl;
     }
 
     @Override
     protected JSONObject doInBackground(JSONObject... params) {
-        sendJSONObject(params[0], url + endUrl);
-        return null;
+        JSONObject res = sendJSONObject(params[0], url + endUrl);
+        return res;
     }
 
 
-
-    public static JSONObject sendJSONObject (JSONObject jsonObject, String finalUrl)
-    {
+    public static JSONObject sendJSONObject(JSONObject jsonObject, String finalUrl) {
         HttpClient httpclient = new DefaultHttpClient();
 
         try {
@@ -79,5 +68,18 @@ public class ServerConnection extends AsyncTask<JSONObject, Integer, JSONObject>
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    protected void onPostExecute(JSONObject result) {
+        //System.out.println("result : " + result.toString());
+
+        if ((!result.equals("") && !result.equals(null))){
+            session.createLoginSession(result, pseudo); // entrer en session l'id et le pseudo de l'objet result
+            Intent intent = new Intent(getApplicationContext(), PageAccueil.class); // création de l'intent
+            startActivity(intent); // lancement de l'intent
+        }
+        else{
+
+        }
     }
 }
