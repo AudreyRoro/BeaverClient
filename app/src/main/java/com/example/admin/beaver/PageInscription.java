@@ -70,7 +70,7 @@ public class PageInscription extends ActionBarActivity {
                    jsonObject.put("uMail", newUser.getuMail());
                    jsonObject.put("uPassword", newUser.getuPassword());
                    ServerConnection connection = new ServerConnection();
-                   connection.setEndUrl("User/add");
+                   //connection.setEndUrl("User/add");
                    connection.execute(jsonObject);
 
 

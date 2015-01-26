@@ -1,5 +1,6 @@
 package com.example.admin.beaver;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.admin.Configurations.HttpPostLogin;
 import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.User;
@@ -21,6 +23,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,32 +71,34 @@ public class PageConnexion extends ActionBarActivity {
                     e.printStackTrace();
                 }
 
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("pseudo", pseudo);
-                    jsonObject.put("password", password);
-                    ServerConnection connection = new ServerConnection();
-                    connection.setEndUrl("User/login");
-                    //connection.execute(jsonObject);
+                if ((!pseudo.equals("")) && (!connect_password.getText().toString().equals(""))) {
 
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("pseudo", pseudo);
+                        jsonObject.put("password", password);
+                        //HttpPostLogin connection = new HttpPostLogin();
+                        //connection.setEndUrl("User/login");
+                        ServerConnection connection = new ServerConnection();
+                        connection.execute(jsonObject, getApplicationContext());
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-
-                /* Affichage "connexion réussie" ou "échec" */
+                /* Affichage "connexion réussie" ou "échec"
                 if ((!pseudo.equals("")) && (!connect_password.getText().toString().equals(""))) {
                    Toast.makeText(getApplicationContext(), "Connexion réussie", LENGTH_LONG).show();
                    session.createLoginSession(1, pseudo);
-
-                   startActivity(intent);
+                   //startActivity(intent);
                }
                    else{
                     Toast.makeText(getApplicationContext(),"Identifiants invalides",LENGTH_LONG).show();
+                }*/
+
+                } else{
+                    Toast.makeText(getApplicationContext(),"Identifiants invalides",LENGTH_LONG).show();
                 }
-
-
             }
         });
 

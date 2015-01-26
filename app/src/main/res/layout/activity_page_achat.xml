@@ -18,14 +18,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Titre"
-            android:id="@+id/textView_buyingTitle" />
+            android:id="@+id/textView_purchaseTitle" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/title_buying"
+            android:id="@+id/title_purchase"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -44,14 +44,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Description"
-            android:id="@+id/textView_buyingDescription" />
+            android:id="@+id/textView_purchaseDescription" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/description_buying"
+            android:id="@+id/description_purchase"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Valeur"
-            android:id="@+id/textView_buyingValue" />
+            android:id="@+id/textView_purchaseValue" />
 
 
         <EditText
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/value_buying" />
+            android:id="@+id/value_purchase" />
 
     </LinearLayout>
 
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Choisissez les personnes concernées"
-            android:id="@+id/textView_buyingConcerned" />
+            android:id="@+id/textView_purchaseConcerned" />
 
 
 
@@ -108,6 +108,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView_Concerned" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter"
+        android:id="@+id/add_purchase"
+        android:layout_gravity="center_horizontal" />
 
 
 </LinearLayout>

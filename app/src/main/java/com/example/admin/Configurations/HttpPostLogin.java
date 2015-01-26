@@ -72,7 +72,7 @@ public class HttpPostLogin extends AsyncTask<JSONObject, Integer, JSONObject> {
 
     protected void onPostExecute(JSONObject result) {
         //System.out.println("result : " + result.toString());
-
+/*
         if ((!result.equals("") && !result.equals(null))){
             session.createLoginSession(result, pseudo); // entrer en session l'id et le pseudo de l'objet result
             Intent intent = new Intent(getApplicationContext(), PageAccueil.class); // création de l'intent
@@ -81,5 +81,6 @@ public class HttpPostLogin extends AsyncTask<JSONObject, Integer, JSONObject> {
         else{
 
         }
+        */
     }
 }

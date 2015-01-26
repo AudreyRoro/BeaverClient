@@ -56,9 +56,9 @@ public class pageCreationEvent extends ActionBarActivity {
                     jsonObject.put("eBeginDate", event.geteBeginDate());
                     jsonObject.put("eEndDate", event.geteEndDate());
                     jsonObject.put("eCreationDate", event.geteCreationDate());
-                    ServerConnection connection = new ServerConnection();
-                    connection.setEndUrl("Event/createEvent");
-                    connection.execute(jsonObject);
+                    //ServerConnection connection = new ServerConnection();
+                    //connection.setEndUrl("Event/createEvent");
+                    //connection.execute(jsonObject);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
