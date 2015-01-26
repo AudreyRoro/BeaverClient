@@ -12,6 +12,7 @@
     <string name="title_activity_page_accueil">Accueil</string>
     <string name="title_activity_page_evenement">Evenement</string>
     <string name="title_activity_page_dette">Dette</string>
+    <string name="title_activity_page_achat">Achat</string>
     <string name="title_activity_page_ajout_participant">Ajouter un Participant</string>
     <string name="title_activity_page_remboursement">Remboursement</string>
 

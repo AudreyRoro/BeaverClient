@@ -40,6 +40,10 @@
             android:label="@string/title_activity_page_dette" >
         </activity>
         <activity
+            android:name=".PageAchat"
+            android:label="@string/title_activity_page_achat" >
+        </activity>
+        <activity
             android:name=".PageAjoutParticipant"
             android:label="@string/title_activity_page_ajout_participant" >
         </activity>
