@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.model.User;
+import com.example.admin.Configurations.SessionManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -29,6 +31,9 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Pattern;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class PageInscription extends ActionBarActivity {
 
@@ -36,7 +41,7 @@ public class PageInscription extends ActionBarActivity {
     EditText inscri_pseudo;
     EditText inscri_mail;
     EditText inscri_password;
-
+    SessionManager session;
 
 
     @Override
@@ -53,7 +58,7 @@ public class PageInscription extends ActionBarActivity {
        btnsave.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent intent = new Intent(PageInscription.this, PageConnexion.class); //lancer page connexion
+               Intent intent = new Intent(PageInscription.this, PageAccueil.class); //lancer page accueil
 
                User newUser = new User();
                newUser.setuMail(inscri_mail.getText().toString());
@@ -64,24 +69,47 @@ public class PageInscription extends ActionBarActivity {
                }
                newUser.setuPseudo(inscri_pseudo.getText().toString());
 
-               JSONObject jsonObject = new JSONObject();
-               try {
-                   jsonObject.put("uPseudo", newUser.getuPseudo());
-                   jsonObject.put("uMail", newUser.getuMail());
-                   jsonObject.put("uPassword", newUser.getuPassword());
-                   ServerConnection connection = new ServerConnection();
-                   //connection.setEndUrl("User/add");
-                   connection.execute(jsonObject);
+               if((!inscri_pseudo.getText().toString().equals(""))
+               && (!inscri_mail.getText().toString().equals(""))
+               && (!inscri_password.getText().toString().equals(""))
+               && (checkEmail(inscri_mail.getText().toString()))){
 
+                   JSONObject jsonObject = new JSONObject();
+                   try {
+                       jsonObject.put("uPseudo", newUser.getuPseudo());
+                       jsonObject.put("uMail", newUser.getuMail());
+                       jsonObject.put("uPassword", newUser.getuPassword());
+                       ServerConnection connection = new ServerConnection();
+                       //connection.setEndUrl("User/add");
+                       connection.execute(jsonObject);
 
-               } catch (JSONException e) {
-                   e.printStackTrace();
+                   } catch (JSONException e) {
+                       e.printStackTrace();
+                   }
+
+                   session.createLoginSession(1, inscri_pseudo.getText().toString());
+
+                   startActivity(intent);
                }
-
-               startActivity(intent);
-
+               else{
+                   Toast.makeText(getApplicationContext(), "Champs vides ou erronés", LENGTH_LONG).show();
+               }
            }
        });
+    }
+
+    private final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+"
+    );
+
+    private boolean checkEmail(String email){
+        return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
     }
 
     private static String convertToHex(byte[] data) {
