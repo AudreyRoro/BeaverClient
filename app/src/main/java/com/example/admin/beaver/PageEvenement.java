@@ -1,6 +1,5 @@
 package com.example.admin.beaver;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ public class PageEvenement extends ActionBarActivity {
     Button btnajout;
     private Intent intent ;
     SessionManager session;
+    private ObjectMapper mapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class PageEvenement extends ActionBarActivity {
 
         intent = getIntent();
         Event event = new Event();
-        ObjectMapper mapper = new ObjectMapper();
+        mapper = new ObjectMapper();
 
         try {
             event = mapper.readValue(intent.getStringExtra("selectedEvent"), Event.class);
@@ -63,8 +63,9 @@ public class PageEvenement extends ActionBarActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent (PageEvenement.this, PageDette.class);
-                startActivity(intent);
+                Intent concernedIntent = new Intent (PageEvenement.this, PageDette.class);
+                concernedIntent.putExtras(intent);
+                startActivity(concernedIntent);
             }
         });
 
@@ -74,7 +75,7 @@ public class PageEvenement extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent participantIntent = new Intent(PageEvenement.this, PageAjoutParticipant.class);
-                participantIntent.putExtra("selectedEvent", intent.getStringExtra("selectedEvent"));
+                participantIntent.putExtras(intent);
                 startActivity(participantIntent);
             }
         });

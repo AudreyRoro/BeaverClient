@@ -74,7 +74,7 @@ public class PageConnexion extends ActionBarActivity {
                     jsonObject.put("password", password);
                     ServerConnection connection = new ServerConnection();
                     connection.setEndUrl("User/login");
-                    connection.execute(jsonObject);
+                    //connection.execute(jsonObject);
 
 
                 } catch (JSONException e) {
