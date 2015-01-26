@@ -42,7 +42,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Déconnexion"
-        android:id="@+id/logout"
+        android:id="@+id/btnlogout"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/flat_selector"

@@ -29,6 +29,7 @@ public class PageAccueil extends Activity {
     private ListView listEvent;
     private Button btnajout;
     private TextView connectedUserText;
+    private Button btnlogout;
     private String className ;
     SessionManager session;
 
@@ -42,6 +43,7 @@ public class PageAccueil extends Activity {
         this.listEvent = (ListView) findViewById(R.id.list);
         this.btnajout = (Button) findViewById(R.id.btnajoutevent);
         this.connectedUserText = (TextView) findViewById(R.id.connectedUserTextView);
+        this.btnlogout = (Button) findViewById(R.id.btnlogout);
 
         session = new SessionManager(getApplicationContext());
         String session_pseudo = session.getSessionPseudo();
@@ -81,6 +83,13 @@ public class PageAccueil extends Activity {
             }
         });
         new HttpGetEvents().execute(this.listEvent, this);
+
+        btnlogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                session.logoutUser();
+            }
+        });
     }
 
 
