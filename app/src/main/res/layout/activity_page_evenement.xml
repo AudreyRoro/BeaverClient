@@ -80,6 +80,8 @@
         android:id="@+id/btn_ajout"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="250dp" />
+        android:layout_marginLeft="250dp"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>

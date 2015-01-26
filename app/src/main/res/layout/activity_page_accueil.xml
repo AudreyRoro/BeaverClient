@@ -13,7 +13,9 @@
         android:id="@+id/btnajoutevent"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:clickable="true" />
+        android:clickable="true"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
 
     <ListView
         android:layout_width="wrap_content"
@@ -21,7 +23,7 @@
         android:id="@+id/list"
         android:layout_below="@+id/btnajoutevent"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
+        android:layout_above="@+id/logout"
         android:layout_marginTop="10dp" />
 
     <TextView
@@ -29,8 +31,22 @@
         android:layout_height="wrap_content"
         android:text="user inconnu"
         android:id="@+id/connectedUserTextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:editable="false" />
+        android:editable="false"
+        android:layout_alignTop="@+id/btnajoutevent"
+        android:layout_alignStart="@+id/list"
+        android:layout_alignBottom="@+id/btnajoutevent"
+        android:gravity="center_vertical"
+        android:textIsSelectable="false" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Déconnexion"
+        android:id="@+id/logout"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

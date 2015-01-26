@@ -22,7 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Button"
-            android:id="@+id/add_debt" />
+            android:id="@+id/add_debt"
+            android:background="@drawable/flat_selector"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -19,11 +19,13 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Pseudo"
             android:id="@+id/textView4"
-            android:password="false" />
+            android:password="false"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -37,7 +39,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout3"
         android:layout_alignStart="@+id/linearLayout3"
@@ -46,10 +48,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Mot de Passe"
-            android:id="@+id/textView5" />
+            android:id="@+id/textView5"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -64,7 +68,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout4"
         android:layout_alignStart="@+id/linearLayout4"
@@ -73,10 +77,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Mail"
-            android:id="@+id/textView6" />
+            android:id="@+id/textView6"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -93,9 +99,10 @@
         android:layout_height="wrap_content"
         android:text="Enregistrer"
         android:id="@+id/btnsave"
+        android:clickable="true"
         android:layout_below="@+id/linearLayout5"
-        android:layout_alignEnd="@+id/linearLayout5"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="-30dp"
-        android:clickable="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

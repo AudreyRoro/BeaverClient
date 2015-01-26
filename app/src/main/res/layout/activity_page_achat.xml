@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout6"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:id="@+id/linearLayout7">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Titre"
-            android:id="@+id/textView_purchaseTitle" />
+            android:id="@+id/textView_purchaseTitle"
+            android:gravity="center_vertical" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -31,20 +33,19 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout6"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:id="@+id/linearLayout8">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Description"
-            android:id="@+id/textView_purchaseDescription" />
+            android:id="@+id/textView_purchaseDescription"
+            android:gravity="center_vertical" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -57,20 +58,19 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout6"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:id="@+id/linearLayout9">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Valeur"
-            android:id="@+id/textView_purchaseValue" />
+            android:id="@+id/textView_purchaseValue"
+            android:gravity="center_vertical" />
 
 
         <EditText
@@ -84,16 +84,16 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout6"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
+        android:id="@+id/linearLayout10"
         android:layout_marginTop="10dp"
-        android:id="@+id/linearLayout10">
+        android:layout_marginBottom="10dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Choisissez les personnes concernées"
@@ -105,7 +105,7 @@
     </LinearLayout>
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView_Concerned" />
 

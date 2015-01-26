@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -17,13 +17,15 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Pseudo"
-            android:id="@+id/textView" />
+            android:id="@+id/textView"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
@@ -34,7 +36,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentStart="true"
@@ -44,10 +46,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Mot de passe"
-            android:id="@+id/textView2" />
+            android:id="@+id/textView2"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -71,7 +75,8 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Vous n&apos;êtes pas encore inscrits ?"
             android:id="@+id/textView3"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="10dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -80,7 +85,9 @@
             android:id="@+id/btn_inscription"
             android:layout_gravity="center_horizontal"
             android:clickable="true"
-            android:elegantTextHeight="false" />
+            android:elegantTextHeight="false"
+            android:background="@drawable/flat_selector"
+            android:textColor="@android:color/white"/>
 
     </LinearLayout>
 
@@ -93,5 +100,7 @@
         android:layout_below="@+id/linearLayout2"
         android:layout_alignEnd="@+id/linearLayout2"
         android:layout_marginTop="10dp"
-        android:clickable="true" />
+        android:clickable="true"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>
