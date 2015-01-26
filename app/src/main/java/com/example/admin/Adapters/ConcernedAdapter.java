@@ -21,11 +21,22 @@ import java.util.List;
  */
 public class ConcernedAdapter extends ArrayAdapter<Concerned> {
 
-    List<Concerned> concernedList;
+    private List<Concerned> concernedList;
+
+    public List<Concerned> getConcernedList() {
+        return concernedList;
+    }
+
+    public void setConcernedList(List<Concerned> concernedList) {
+        this.concernedList = concernedList;
+    }
+
     private final static Logger log = Logger.getLogger(Concerned.class);
     LayoutInflater inflater;
 
     Context context;
+
+
 
     public ConcernedAdapter(Context context, int resource, List<Concerned> concernedList) {
         super(context, resource, concernedList);
