@@ -27,16 +27,36 @@ import java.util.List;
  */
 public class HttpPostParticipant extends AsyncTask<Object, Integer, String> {
 
-    private static String url = "http://10.0.2.2:8080/Participant/add";
+    private String url = "http://10.0.2.2:8080/Participant/add";
     private Activity activity ;
     private ListView listView;
+    private String action ;
 
     @Override
     protected String doInBackground(Object... params) {
         Participant participant = (Participant) params[0];
-        activity = (Activity) params[1];
-        listView = (ListView) params[2];
-        return addParticipant(participant);
+
+        action = (String) params[1];
+        String result = null;
+        switch(action)
+        {
+            case "PARTICIPANT" :
+                activity = (Activity) params[2];
+                listView = (ListView) params[3];
+                result = addParticipant(participant);
+                break;
+
+            case "EVENT" :
+                result = addParticipant(participant);
+                break;
+
+            default :
+                result = null;
+                break;
+        }
+
+        return result;
+
     }
 
     protected String addParticipant(Participant participant)
@@ -73,35 +93,38 @@ public class HttpPostParticipant extends AsyncTask<Object, Integer, String> {
     }
 
     protected void onPostExecute(String result) {
-        JSONArray jsonArray = null;
-        try {
-            jsonArray = new JSONArray(result);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        List<Participant> participants = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        for (int i = 0; i < jsonArray.length(); i++)
+        if (action.equals("PARTICIPANT"))
         {
-            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
             try {
-                jsonObject = jsonArray.getJSONObject(i);
+                jsonArray = new JSONArray(result);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            try {
-                participants.add(mapper.readValue(jsonObject.toString(), Participant.class));
-            } catch (IOException e) {
-                e.printStackTrace();
+            List<Participant> participants = new ArrayList<>();
+            ObjectMapper mapper = new ObjectMapper();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = jsonArray.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    participants.add(mapper.readValue(jsonObject.toString(), Participant.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            System.out.println(participants.size());
+            //listView.setAdapter(null);
+            ArrayAdapter<Participant> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, participants);
+
+            listView.setAdapter(adapter);
+
         }
-        System.out.println(participants.size());
-        //listView.setAdapter(null);
-        ArrayAdapter<Participant> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, participants);
-
-        listView.setAdapter(adapter);
-
     }
 }

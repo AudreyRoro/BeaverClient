@@ -35,6 +35,7 @@ public class PageAjoutParticipant extends ActionBarActivity {
     ListView listView;
     Activity activity;
     SessionManager session;
+    List<Participant> participantList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class PageAjoutParticipant extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        List<Participant> participantList = new ArrayList<>();
+        participantList = new ArrayList<>();
         participantList.addAll(event.getParticipants());
 
         ArrayAdapter<Participant> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, participantList);
@@ -70,10 +71,31 @@ public class PageAjoutParticipant extends ActionBarActivity {
         btn_recherche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String recherche = participant.getText().toString();
-                if (! event.equals(null))
-                    rechercheParticipant(recherche, reponse, event, activity, listView);
+                String pseudoNewParticipant = participant.getText().toString();
 
+                // Check if participant is already added
+                boolean alreadyParticipant = false;
+                if (! event.equals(null))
+                    for (Participant participant : participantList) {
+                        if (participant.getUser().getuPseudo().equals(pseudoNewParticipant))
+                            alreadyParticipant = true;
+                    }
+
+                if (!alreadyParticipant)
+                    rechercheParticipant(pseudoNewParticipant, reponse, event, activity, listView);
+                else
+                    reponse.setText("L'utilisateur participe déjà à l'évenement");
+            }
+        });
+
+        Button button_return = (Button) findViewById(R.id.button_returnEvent);
+        button_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PageAjoutParticipant.this, PageEvenement.class);
+
+                intent.putExtras(getIntent());
+                startActivity(intent);
             }
         });
 

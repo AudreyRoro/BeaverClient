@@ -57,7 +57,7 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(JSONObject jsonObject) {
+    public User createLoginSession(JSONObject jsonObject) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -76,6 +76,7 @@ public class SessionManager {
 
         // commit changes
         editor.commit();
+        return user;
     }
 
     /**

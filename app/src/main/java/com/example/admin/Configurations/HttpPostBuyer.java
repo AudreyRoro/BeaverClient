@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
 
-    private static String url = "http://10.0.2.2:8080/Buyer/add";
+    private String url = "http://10.0.2.2:8080/Buyer/add";
     private Context context;
 
     @Override

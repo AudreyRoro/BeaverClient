@@ -20,6 +20,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +36,7 @@ import static android.widget.Toast.LENGTH_LONG;
  */
 public class HttpPostLogin extends AsyncTask<Object, Integer, JSONObject> {
 
-    private static String url = "http://10.0.2.2:8080/User/login";
+    private String url = "http://10.0.2.2:8080/User/login";
     //private static String url = "http://192.168.43.148:8080/User/login";
     private Context context;
     SessionManager session;
@@ -85,12 +86,20 @@ public class HttpPostLogin extends AsyncTask<Object, Integer, JSONObject> {
     }
 
     protected void onPostExecute(JSONObject result) {
+        ObjectMapper mapper = new ObjectMapper();
 
         if(result!=null) {
             if(!result.toString().equals("{}")) {
-                session.createLoginSession(result); // entrer en session l'id et le pseudo de l'objet result
+                User user = session.createLoginSession(result); // entrer en session l'id et le pseudo de l'objet result
                 Toast.makeText(context, "Connection réussie", LENGTH_LONG).show();
                 Intent intent = new Intent(context, PageAccueil.class); // création de l'intent
+
+                try {
+                    intent.putExtra("currentUser", mapper.writeValueAsString(user));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);// lancement de l'intent
             }

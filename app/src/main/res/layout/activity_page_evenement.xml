@@ -19,69 +19,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Titre"
+            android:id="@+id/info_event_title" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Description"
-            android:id="@+id/description" />
+            android:id="@+id/info_event_description" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Somme des achats : "
+            android:id="@+id/infos_sum_purchases" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/liste_participants"
+            android:layout_below="@+id/linearLayout11"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:headerDividersEnabled="false" />
+
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="date de début   "
-                android:id="@+id/dateDebut" />
+                android:text="Retour"
+                android:id="@+id/button_returnHome"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/flat_selector"
+                android:textColor="@android:color/white"/>
 
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Date de fin"
-                android:id="@+id/dateFin" />
+                android:text="+"
+                android:id="@+id/btn_ajout"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="160dp"
+                android:background="@drawable/flat_selector"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Cagnotte totale :  "
-                android:id="@+id/textView12" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="...€"
-                android:id="@+id/cagnotteTotale" />
-        </LinearLayout>
     </LinearLayout>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/liste_participants"
-        android:layout_below="@+id/linearLayout11"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp"
-        android:headerDividersEnabled="false" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        android:id="@+id/btn_ajout"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="250dp"
-        android:background="@drawable/flat_selector"
-        android:textColor="@android:color/white"/>
-
 </RelativeLayout>

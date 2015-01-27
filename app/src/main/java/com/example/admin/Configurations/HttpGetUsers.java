@@ -122,7 +122,7 @@ public class HttpGetUsers extends AsyncTask<Object, Void, String> {
 
     private boolean addParticipant(Participant participant)
     {
-        new HttpPostParticipant().execute(participant, activity, listView );
+        new HttpPostParticipant().execute(participant, "PARTICIPANT" ,activity, listView );
         return false;
     }
 }

@@ -24,7 +24,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rechercher"
+            android:text="Ajouter"
             android:id="@+id/button_recherche"
             android:singleLine="false"
             android:layout_marginLeft="200dp"
@@ -52,6 +52,19 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="40dp"
             android:headerDividersEnabled="false" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="retour"
+            android:id="@+id/button_returnEvent"
+            android:singleLine="false"
+            android:layout_marginLeft="200dp"
+            android:clickable="true"
+            android:background="@drawable/flat_selector"
+            android:textColor="@android:color/white"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
 
 
     </LinearLayout>

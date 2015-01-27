@@ -1,5 +1,6 @@
 package com.example.admin.beaver;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,12 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.admin.Configurations.HttpPostEvent;
 import com.example.admin.Configurations.ServerConnection;
 import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Event;
+import com.example.admin.model.User;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 
 public class pageCreationEvent extends ActionBarActivity {
@@ -23,7 +29,8 @@ public class pageCreationEvent extends ActionBarActivity {
     EditText titre, description;
     TextView connectedUserText;
     SessionManager session;
-
+    Intent parentIntent ;
+    User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,14 @@ public class pageCreationEvent extends ActionBarActivity {
         connectedUserText = (TextView) findViewById(R.id.connectedUserTextView);
         connectedUserText.setText(session_pseudo);
 
+        parentIntent = getIntent();
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            currentUser = mapper.readValue(parentIntent.getStringExtra("currentUser"), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,21 +63,8 @@ public class pageCreationEvent extends ActionBarActivity {
                 event.seteTitle(titre.getText().toString());
                 event.seteDescription(description.getText().toString());
 
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("eTitle", event.geteTitle());
-
-                    jsonObject.put("eDescription", event.geteDescription());
-                    jsonObject.put("eBeginDate", event.geteBeginDate());
-                    jsonObject.put("eEndDate", event.geteEndDate());
-                    jsonObject.put("eCreationDate", event.geteCreationDate());
-                    ServerConnection connection = new ServerConnection();
-                    connection.setEndUrl("Event/createEvent");
-                    connection.execute(jsonObject);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    HttpPostEvent httpPostEvent = new HttpPostEvent();
+                    httpPostEvent.execute(event, currentUser, getApplicationContext());
             }
         });
     }

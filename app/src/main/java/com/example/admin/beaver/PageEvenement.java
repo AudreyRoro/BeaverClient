@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Event;
@@ -51,6 +52,12 @@ public class PageEvenement extends ActionBarActivity {
             e.printStackTrace();
         }
 
+        TextView infos_event_title = (TextView) findViewById(R.id.info_event_title);
+        TextView infos_event_description = (TextView) findViewById(R.id.info_event_description);
+
+        infos_event_title.setText(infos_event_title.getText().toString() + " : " + event.geteTitle());
+        infos_event_description.setText(infos_event_description.getText().toString() + " : " + event.geteDescription());
+
         log.info("Nom de l'evenement : " + event.geteTitle());
 
         List<Participant> participantList = new ArrayList<>();
@@ -64,7 +71,7 @@ public class PageEvenement extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent concernedIntent = new Intent (PageEvenement.this, PageDette.class);
-                concernedIntent.putExtras(intent);
+                concernedIntent.putExtras(getIntent());
                 startActivity(concernedIntent);
             }
         });
@@ -75,7 +82,17 @@ public class PageEvenement extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent participantIntent = new Intent(PageEvenement.this, PageAjoutParticipant.class);
-                participantIntent.putExtras(intent);
+                participantIntent.putExtras(getIntent());
+                startActivity(participantIntent);
+            }
+        });
+
+        Button btn_returnHome = (Button) findViewById(R.id.button_returnHome);
+        btn_returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent participantIntent = new Intent(PageEvenement.this, PageAccueil.class);
+                participantIntent.putExtras(getIntent());
                 startActivity(participantIntent);
             }
         });

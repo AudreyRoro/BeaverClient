@@ -6,10 +6,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.admin.model.Event;
+import com.example.admin.model.User;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -38,15 +41,34 @@ public class HttpGetEvents extends AsyncTask<Object, Void, String>{
     protected String doInBackground(Object... params) {
         this.listView = (ListView) params[0];
         this.activity = (Activity) params[1];
-        return getInputStreamFromUrl(url);
+
+        User user = new User();
+        user.setuId((Integer)params[2]);
+
+        return getInputStreamFromUrl(url, user);
     }
 
-    final String getInputStreamFromUrl(String url) {
+    final String getInputStreamFromUrl(String url, User user) {
         BufferedReader inStream = null;
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpRequest = new HttpGet(url);
-            HttpResponse response = httpClient.execute(httpRequest);
+            HttpPost httpPost = new HttpPost(url);
+
+            ObjectMapper mapper = new ObjectMapper();
+            StringEntity se = null;
+            try {
+                se = new StringEntity(mapper.writeValueAsString(user));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (!se.equals(null))
+                httpPost.setEntity(se);
+
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+
+            HttpResponse response = httpClient.execute(httpPost);
             inStream = new BufferedReader( new InputStreamReader( response.getEntity().getContent()));
 
 
@@ -58,7 +80,7 @@ public class HttpGetEvents extends AsyncTask<Object, Void, String>{
 
             eventList = new ArrayList<Event>();
             JSONArray jsonArray = new JSONArray(result);
-            ObjectMapper mapper = new ObjectMapper();
+
             for (int i=0; i<jsonArray.length(); i++)
             {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);

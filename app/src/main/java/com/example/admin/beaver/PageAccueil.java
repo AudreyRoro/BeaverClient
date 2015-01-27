@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.admin.Configurations.HttpGetEvents;
 import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Event;
+import com.example.admin.model.User;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -30,16 +31,29 @@ public class PageAccueil extends Activity {
     private Button btnajout;
     private TextView connectedUserText;
     private Button btnlogout;
-    private String className ;
     SessionManager session;
+    Intent parentIntent;
+    User currentUser ;
+    ObjectMapper mapper;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         BasicConfigurator.configure();
 
-        super.onCreate(savedInstanceState);
+       super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_accueil);
+
+        mapper = new ObjectMapper();
+
+        parentIntent = getIntent();
+
+        try {
+            currentUser = mapper.readValue(parentIntent.getStringExtra("currentUser"), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         this.listEvent = (ListView) findViewById(R.id.list);
         this.btnajout = (Button) findViewById(R.id.btnajoutevent);
         this.connectedUserText = (TextView) findViewById(R.id.connectedUserTextView);
@@ -54,6 +68,11 @@ public class PageAccueil extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PageAccueil.this, pageCreationEvent.class);
+                try {
+                    intent.putExtra("currentUser", mapper.writeValueAsString(currentUser));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
             }
         });
@@ -63,10 +82,12 @@ public class PageAccueil extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(PageAccueil.this, PageEvenement.class);
                 Event selectedEvent = (Event) parent.getItemAtPosition(position);
-                ObjectMapper mapper = new ObjectMapper();
+
                 String jsonSelectedEvent = "";
+                String jsonCurrentUser = "";
                 try {
                     jsonSelectedEvent = mapper.writeValueAsString(selectedEvent);
+                    jsonCurrentUser = mapper.writeValueAsString(currentUser);
                     log.info("jsonSelectedEvent : " + jsonSelectedEvent);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -74,6 +95,7 @@ public class PageAccueil extends Activity {
                 log.info("Evenement choisi : " + selectedEvent.geteTitle());
 
                 if(jsonSelectedEvent != "") {
+                    intent.putExtra("currentUser", jsonCurrentUser);
                     intent.putExtra("selectedEvent", jsonSelectedEvent);
                     startActivity(intent);
                 } else
@@ -82,7 +104,7 @@ public class PageAccueil extends Activity {
                 }
             }
         });
-        new HttpGetEvents().execute(this.listEvent, this);
+        new HttpGetEvents().execute(this.listEvent, this, session.getSessionID());
 
         btnlogout.setOnClickListener(new View.OnClickListener() {
             @Override
