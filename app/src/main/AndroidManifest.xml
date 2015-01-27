@@ -51,6 +51,11 @@
             android:name=".PageRemboursement"
             android:label="@string/title_activity_page_remboursement" >
         </activity>
+
+        <activity
+            android:name=".PageListeAchats"
+            android:label="Liste d'achats" >
+        </activity>
     </application>
 
 </manifest>

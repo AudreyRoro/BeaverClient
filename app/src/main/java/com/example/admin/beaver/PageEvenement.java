@@ -60,7 +60,7 @@ public class PageEvenement extends ActionBarActivity {
 
         log.info("Nom de l'evenement : " + event.geteTitle());
 
-        List<Participant> participantList = new ArrayList<>();
+        final List<Participant> participantList = new ArrayList<>();
         participantList.addAll(event.getParticipants());
 
         ListView list = (ListView) findViewById(R.id.liste_participants);
@@ -70,9 +70,15 @@ public class PageEvenement extends ActionBarActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent concernedIntent = new Intent (PageEvenement.this, PageDette.class);
-                concernedIntent.putExtras(getIntent());
-                startActivity(concernedIntent);
+                Intent buyerIntent = new Intent (PageEvenement.this, PageListeAchats.class);
+
+                buyerIntent.putExtras(getIntent());
+                try {
+                    buyerIntent.putExtra("selectedParticipant", mapper.writeValueAsString(participantList.get(position)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                startActivity(buyerIntent);
             }
         });
 

@@ -30,8 +30,8 @@ public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
         Buyer buyer = (Buyer) params[0];
         context = (Context) params[1];
 
-        sendBuyer(buyer);
-        return null;
+        return sendBuyer(buyer);
+
     }
 
     protected String sendBuyer (Buyer buyer)
@@ -67,11 +67,11 @@ public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
     }
 
     protected void onPostExecute(String result) {
-        if (!result.equals("")) {
-            Intent intent = new Intent(context, PageEvenement.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        }
+
+        Intent intent = new Intent(context, PageEvenement.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+
 
     }
 }

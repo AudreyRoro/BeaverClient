@@ -61,4 +61,9 @@ public class Buyer {
     public void setConcernedSet(Set<Concerned> concernedSet) {
         this.concernedSet = concernedSet;
     }
+
+    @Override
+    public String toString(){
+        return getbTitle() + "( " + getbValue() + "€ ) ";
+    }
 }

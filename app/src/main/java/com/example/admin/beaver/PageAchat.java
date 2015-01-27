@@ -37,6 +37,7 @@ public class PageAchat extends ActionBarActivity {
     EditText value_purchase ;
     ConcernedAdapter participantArrayAdapter;
     Event event ;
+    Participant participant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,10 @@ public class PageAchat extends ActionBarActivity {
         parentIntent = getIntent();
         ObjectMapper mapper = new ObjectMapper();
         try {
-            event = (Event) mapper.readValue(parentIntent.getStringExtra("selectedEvent"), Event.class);
+            if (parentIntent.hasExtra("selectedParticipant"))
+                participant = mapper.readValue(parentIntent.getStringExtra("selectedParticipant"), Participant.class);
+            if (parentIntent.hasExtra("selectedEvent"))
+                event = mapper.readValue(parentIntent.getStringExtra("selectedEvent"), Event.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,37 +80,40 @@ public class PageAchat extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 /* User (moi) à modifier */
-                User user = new User();
-                user.setuId(2);
-                user.setuPseudo("marianne");
-                user.setuPassword("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
-                user.setuMail("marianne@koehl.com");
 
-                Participant participant = new Participant();
-                participant.setUser(user);
                 participant.setEvent(event);
 
-                Buyer buyer = new Buyer();
-                buyer.setbTitle(title_purchase.getText().toString());
-                buyer.setbDescription(description_purchase.getText().toString());
-                buyer.setbValue(Integer.parseInt(value_purchase.getText().toString()));
-                buyer.setParticipant(participant);
+                if (! title_purchase.getText().toString().isEmpty() && !value_purchase.getText().toString().isEmpty()) {
+
+                    Buyer buyer = new Buyer();
+                    buyer.setbTitle(title_purchase.getText().toString());
+                    buyer.setbDescription(description_purchase.getText().toString());
+                    buyer.setbValue(Integer.parseInt(value_purchase.getText().toString()));
+                    buyer.setParticipant(participant);
 
 
-                List<Concerned> listConcernedForBuyer = new ArrayList<>();
+                    List<Concerned> listConcernedForBuyer = new ArrayList<>();
 
-                List<Concerned> list = participantArrayAdapter.getConcernedList();
-                for (Concerned concerned : list)
-                {
-                    if(concerned.isChecked())
-                        listConcernedForBuyer.add(concerned);
+                    List<Concerned> list = participantArrayAdapter.getConcernedList();
+                    for (Concerned concerned : list) {
+                        if (concerned.isChecked())
+                            listConcernedForBuyer.add(concerned);
+                    }
 
+                    buyer.setConcernedSet(new HashSet<>(listConcernedForBuyer));
+
+                    new HttpPostBuyer().execute(buyer, getApplicationContext());
                 }
+            }
+        });
 
-                buyer.setConcernedSet(new HashSet<>(listConcernedForBuyer));
-
-                new HttpPostBuyer().execute(buyer, getApplicationContext());
-
+        Button btn_returnListPurchase = (Button) findViewById(R.id.button_returnListPurchases);
+        btn_returnListPurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PageAchat.this, PageListeAchats.class);
+                intent.putExtras(getIntent());
+                startActivity(intent);
             }
         });
 
