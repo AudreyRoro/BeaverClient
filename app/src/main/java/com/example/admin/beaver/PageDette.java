@@ -38,7 +38,7 @@ public class PageDette extends ActionBarActivity {
         String session_pseudo = session.getSessionPseudo();
         int session_id = session.getSessionID();
 
-        Button button = (Button) findViewById(R.id.add_debt);
+        /*Button button = (Button) findViewById(R.id.add_debt);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +47,7 @@ public class PageDette extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
+*/
 
     }
 

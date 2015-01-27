@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.example.admin.beaver.PageEvenement;
+import com.example.admin.beaver.PageListeAchats;
 import com.example.admin.model.Buyer;
 
 import org.apache.http.HttpResponse;
@@ -24,12 +25,13 @@ public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
 
     private String url = "http://10.0.2.2:8080/Buyer/add";
     private Context context;
+    private Intent parentIntent;
 
     @Override
     protected String doInBackground(Object... params) {
         Buyer buyer = (Buyer) params[0];
         context = (Context) params[1];
-
+        parentIntent = (Intent) params[2];
         return sendBuyer(buyer);
 
     }
@@ -68,7 +70,8 @@ public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
 
     protected void onPostExecute(String result) {
 
-        Intent intent = new Intent(context, PageEvenement.class);
+        Intent intent = new Intent(context, PageListeAchats.class);
+        intent.putExtras(parentIntent);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
 

@@ -102,7 +102,7 @@ public class PageAchat extends ActionBarActivity {
 
                     buyer.setConcernedSet(new HashSet<>(listConcernedForBuyer));
 
-                    new HttpPostBuyer().execute(buyer, getApplicationContext());
+                    new HttpPostBuyer().execute(buyer, getApplicationContext(), parentIntent);
                 }
             }
         });
@@ -112,7 +112,7 @@ public class PageAchat extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PageAchat.this, PageListeAchats.class);
-                intent.putExtras(getIntent());
+                intent.putExtras(parentIntent);
                 startActivity(intent);
             }
         });

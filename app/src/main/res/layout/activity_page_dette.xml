@@ -7,22 +7,40 @@
     tools:context="com.example.admin.beaver.PageDette"
     android:id="@+id/rel_layout">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView13" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/textView13"
-        android:layout_alignParentStart="true">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout11">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/liste_debts_giver"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:headerDividersEnabled="false" />
+
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/liste_debts_receiver"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:headerDividersEnabled="false" />
+
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/add_debt"
+            android:text="Retour"
+            android:id="@+id/button_returnHome"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/flat_selector"
             android:textColor="@android:color/white"/>
     </LinearLayout>

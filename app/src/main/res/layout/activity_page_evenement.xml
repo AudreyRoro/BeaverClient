@@ -76,5 +76,16 @@
                 android:textColor="@android:color/white"/>
         </LinearLayout>
 
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Accéder aux dettes"
+            android:id="@+id/btn_goToDebt"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/flat_selector"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 </RelativeLayout>
