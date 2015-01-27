@@ -54,6 +54,7 @@ public class PageInscription extends ActionBarActivity {
         inscri_mail= (EditText) findViewById(R.id.inscri_mail);
         inscri_password= (EditText) findViewById(R.id.inscri_password);
 
+        session = new SessionManager(getApplicationContext());
 
        btnsave.setOnClickListener(new View.OnClickListener() {
            @Override
