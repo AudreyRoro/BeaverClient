@@ -21,23 +21,28 @@ import java.io.IOException;
 /**
  * Created by Marianne on 22/01/15.
  */
-public class ServerConnection extends AsyncTask<Object, Integer, JSONObject>{
+public class ServerConnection extends AsyncTask<JSONObject, Integer, JSONObject>{
 
-    private static String url = "http://10.0.2.2:8080/User/login";
-    private Context context;
+
+    private static String url = "http://192.168.43.148:8080/";
+    private static String endUrl;
+
+    public static String getEndUrl() {
+        return endUrl;
+    }
+
+    public static void setEndUrl(String endUrl) {
+        ServerConnection.endUrl = endUrl;
+    }
 
     @Override
-    protected JSONObject doInBackground(Object... params) {
-        context = (Context) params[1];
-        JSONObject jsonObject = (JSONObject) params[0];
-        return sendJSONObject(jsonObject, url);
-
+    protected JSONObject doInBackground(JSONObject... params) {
+        JSONObject res = sendJSONObject(params[0], url + endUrl);
+        return res;
     }
 
 
-
-    public static JSONObject sendJSONObject (JSONObject jsonObject, String finalUrl)
-    {
+    public static JSONObject sendJSONObject(JSONObject jsonObject, String finalUrl) {
         HttpClient httpclient = new DefaultHttpClient();
 
         try {
@@ -63,24 +68,5 @@ public class ServerConnection extends AsyncTask<Object, Integer, JSONObject>{
             System.out.println(e.getMessage());
         }
         return null;
-    }
-
-    protected void onPostExecute(JSONObject result) {
-        //System.out.println("result : " + result.toString());
-
-        //if ((!result.equals("") && !result.equals(null))){
-            /*
-            * ton pseudo tu dois le récupérer depuis result.
-            * */
-
-            //session.createLoginSession(result, pseudo); // entrer en session l'id et le pseudo de l'objet result
-            Intent intent = new Intent(context, PageAccueil.class); // création de l'intent
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);// lancement de l'intent
-        //}
-        //else{
-
-        //}
-
     }
 }

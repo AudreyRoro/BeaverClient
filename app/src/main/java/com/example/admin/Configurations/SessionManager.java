@@ -12,6 +12,12 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.example.admin.beaver.PageConnexion;
+import com.example.admin.model.User;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 
 public class SessionManager {
@@ -39,6 +45,8 @@ public class SessionManager {
     // Email address (make variable public to access from outside)
     public static final String KEY_PSEUDO = "pseudo";
 
+    private static final String KEY_EMAIL = "email";
+
     // Constructor
     public SessionManager(Context context) {
         this._context = context;
@@ -49,15 +57,22 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(int id, String pseudo) {
+    public void createLoginSession(JSONObject jsonObject) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
-        // Storing name in pref
-        editor.putInt(KEY_ID, id);
+        User user = new User();
+        ObjectMapper mapper = new ObjectMapper();
 
-        // Storing email in pref
-        editor.putString(KEY_PSEUDO, pseudo);
+        try {
+            user = mapper.readValue(jsonObject.toString(), User.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        editor.putInt(KEY_ID, user.getuId());
+        editor.putString(KEY_PSEUDO, user.getuPseudo());
+        editor.putString(KEY_EMAIL, user.getuMail());
 
         // commit changes
         editor.commit();
@@ -94,8 +109,10 @@ public class SessionManager {
     }
 
     public String getSessionPseudo() {
-        return pref.getString(KEY_PSEUDO, "");
+        return pref.getString(KEY_PSEUDO, "---");
     }
+
+    public String getSessionMail() { return pref.getString(KEY_EMAIL, "---");}
 
     /**
      * Clear session details

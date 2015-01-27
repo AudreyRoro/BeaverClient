@@ -79,7 +79,7 @@ public class PageConnexion extends ActionBarActivity {
                         jsonObject.put("password", password);
                         //HttpPostLogin connection = new HttpPostLogin();
                         //connection.setEndUrl("User/login");
-                        ServerConnection connection = new ServerConnection();
+                        HttpPostLogin connection = new HttpPostLogin();
                         connection.execute(jsonObject, getApplicationContext());
 
                     } catch (JSONException e) {
