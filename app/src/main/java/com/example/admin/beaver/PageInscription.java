@@ -21,6 +21,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,7 +60,7 @@ public class PageInscription extends ActionBarActivity {
        btnsave.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent intent = new Intent(PageInscription.this, PageAccueil.class); //lancer page accueil
+               //Intent intent = new Intent(PageInscription.this, PageAccueil.class); //lancer page accueil
 
                User newUser = new User();
                newUser.setuMail(inscri_mail.getText().toString());
@@ -75,6 +76,7 @@ public class PageInscription extends ActionBarActivity {
                && (!inscri_password.getText().toString().equals(""))
                && (checkEmail(inscri_mail.getText().toString()))){
 
+               //User user = null;
                    JSONObject jsonObject = new JSONObject();
                    try {
                        jsonObject.put("uPseudo", newUser.getuPseudo());
@@ -82,14 +84,20 @@ public class PageInscription extends ActionBarActivity {
                        jsonObject.put("uPassword", newUser.getuPassword());
                        ServerConnection connection = new ServerConnection();
                        connection.setEndUrl("User/add");
-                       connection.execute(jsonObject);
-                       session.createLoginSession(jsonObject);
+                       connection.execute(jsonObject, getApplicationContext());
+                       //user = session.createLoginSession(jsonObject);
 
                    } catch (JSONException e) {
                        e.printStackTrace();
                    }
-
-                   startActivity(intent);
+/*
+                   ObjectMapper mapper = new ObjectMapper();
+                   try {
+                       intent.putExtra("currentUser", mapper.writeValueAsString(user));
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+                   startActivity(intent);*/
                }
                else{
                    Toast.makeText(getApplicationContext(), "Champs vides ou erronés", LENGTH_LONG).show();

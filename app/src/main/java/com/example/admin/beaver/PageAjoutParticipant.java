@@ -36,6 +36,7 @@ public class PageAjoutParticipant extends ActionBarActivity {
     Activity activity;
     SessionManager session;
     List<Participant> participantList;
+    Intent parentIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +54,10 @@ public class PageAjoutParticipant extends ActionBarActivity {
         activity = this;
 
         ObjectMapper objectMapper = new ObjectMapper();
-        Intent intent = getIntent();
+        parentIntent = getIntent();
 
         try {
-            event = objectMapper.readValue(intent.getStringExtra("selectedEvent"), Event.class);
+            event = objectMapper.readValue(parentIntent.getStringExtra("selectedEvent"), Event.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,7 +95,7 @@ public class PageAjoutParticipant extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PageAjoutParticipant.this, PageEvenement.class);
 
-                intent.putExtras(getIntent());
+                intent.putExtras(parentIntent);
                 startActivity(intent);
             }
         });

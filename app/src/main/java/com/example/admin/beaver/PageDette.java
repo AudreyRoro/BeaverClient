@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.admin.Adapters.ConcernedAdapter;
 import com.example.admin.Adapters.GiverAdapter;
@@ -52,6 +53,11 @@ public class PageDette extends ActionBarActivity {
         LayoutInflater layoutInflater = getLayoutInflater();
         ViewGroup header_giver = (ViewGroup) layoutInflater.inflate(R.layout.header_list_view, giver_listView, false);
         ViewGroup header_receiver = (ViewGroup) layoutInflater.inflate(R.layout.header_list_view, receiver_listView, false);
+        TextView txt_header_receiver = (TextView) header_receiver.findViewById(R.id.header_text);
+        TextView txt_header_giver = (TextView) header_giver.findViewById(R.id.header_text);
+
+        txt_header_giver.setText("Ce qu'on vous doit : ");
+        txt_header_receiver.setText("Ce que vous devez : ");
 
         giver_listView.addHeaderView(header_giver);
         receiver_listView.addHeaderView(header_receiver);

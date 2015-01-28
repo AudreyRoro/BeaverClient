@@ -68,9 +68,9 @@ public class GiverAdapter extends ArrayAdapter<Debt> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Debt debt = new Debt();
-        holder.infos_debt_name.setText(debt.getReceiver().getUser().getuPseudo());
-        holder.infos_debt_amount.setText(debt.getdAmount());
+        Debt debt = debtList.get(position);
+        holder.infos_debt_name.setText(debt.getGiver().getUser().getuPseudo());
+        holder.infos_debt_amount.setText(debt.getdAmount() + " €");
         holder.infos_debt_amount.setTextColor(Color.GREEN);
         return convertView;
 
