@@ -110,12 +110,12 @@ public class HttpGetDebts extends AsyncTask<Object, String, String> {
     protected void onPostExecute(String result)
     {
         if(debtList.size() != 0) {
-
+            List<Debt> giverList = new ArrayList<>();
+            List<Debt> receiverList = new ArrayList<>();
             for (Debt debt : debtList)
             {
                 if(debt.getReceiver().getUser().getuId() == participant.getUser().getuId())
                 {
-                    List<Debt> giverList = new ArrayList<>();
                     giverList.add(debt);
                     configureListViewGiver(giverList);
 
@@ -123,7 +123,6 @@ public class HttpGetDebts extends AsyncTask<Object, String, String> {
 
                 if(debt.getGiver().getUser().getuId() == participant.getUser().getuId())
                 {
-                    List<Debt> receiverList = new ArrayList<>();
                     receiverList.add(debt);
                     configureListViewReceiver(receiverList);
                 }

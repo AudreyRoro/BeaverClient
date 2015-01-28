@@ -105,48 +105,6 @@
                 android:id="@+id/editText3" />
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout8"
-            android:layout_alignStart="@+id/linearLayout8"
-            android:layout_marginTop="10dp"
-            android:id="@+id/linearLayout9">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Date de début"
-                android:id="@+id/textView10"
-                android:singleLine="false"
-                android:gravity="center_vertical" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout9"
-            android:layout_alignStart="@+id/linearLayout9"
-            android:layout_marginTop="10dp"
-            android:id="@+id/linearLayout10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Date de fin"
-                android:id="@+id/textView11"
-                android:gravity="center_vertical" />
-
-
-
-        </LinearLayout>
-
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

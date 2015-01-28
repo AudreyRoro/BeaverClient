@@ -71,7 +71,7 @@ public class GiverAdapter extends ArrayAdapter<Debt> {
         Debt debt = debtList.get(position);
         holder.infos_debt_name.setText(debt.getGiver().getUser().getuPseudo());
         holder.infos_debt_amount.setText(debt.getdAmount() + " €");
-        holder.infos_debt_amount.setTextColor(Color.GREEN);
+        holder.infos_debt_amount.setTextColor(Color.BLUE);
         return convertView;
 
     }

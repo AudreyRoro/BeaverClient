@@ -59,8 +59,10 @@ public class PageDette extends ActionBarActivity {
         txt_header_giver.setText("Ce qu'on vous doit : ");
         txt_header_receiver.setText("Ce que vous devez : ");
 
+
         giver_listView.addHeaderView(header_giver);
         receiver_listView.addHeaderView(header_receiver);
+
 
         ObjectMapper mapper = new ObjectMapper();
         Participant participant = new Participant();
@@ -73,6 +75,17 @@ public class PageDette extends ActionBarActivity {
         }
 
         new HttpGetDebts().execute(participant, this, giver_listView, receiver_listView);
+
+
+        Button btn_returnHome = (Button) findViewById(R.id.button_returnHome);
+        btn_returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent participantIntent = new Intent(PageDette.this, PageEvenement.class);
+                participantIntent.putExtras(getIntent());
+                startActivity(participantIntent);
+            }
+        });
 
 
     }
