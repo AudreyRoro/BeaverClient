@@ -3,19 +3,30 @@ package com.example.admin.beaver;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.admin.Adapters.ConcernedAdapter;
+import com.example.admin.Adapters.GiverAdapter;
+import com.example.admin.Adapters.ReceiverAdapter;
+import com.example.admin.Configurations.HttpGetDebts;
+import com.example.admin.Configurations.HttpGetUsers;
 import com.example.admin.Configurations.SessionManager;
 import com.example.admin.model.Concerned;
+import com.example.admin.model.Debt;
+import com.example.admin.model.Event;
 import com.example.admin.model.Participant;
 import com.example.admin.model.User;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,31 +34,40 @@ import java.util.List;
 public class PageDette extends ActionBarActivity {
 
     SessionManager session;
-
-    
-    Intent parentIntent;
+    GiverAdapter giverAdapter;
+    ReceiverAdapter receiverAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_dette);
 
-        parentIntent = getIntent();
-
         session = new SessionManager(getApplicationContext());
         String session_pseudo = session.getSessionPseudo();
         int session_id = session.getSessionID();
 
-        /*Button button = (Button) findViewById(R.id.add_debt);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PageDette.this, PageAchat.class);
-                intent.putExtras(parentIntent);
-                startActivity(intent);
-            }
-        });
-*/
+        ListView giver_listView = (ListView) findViewById(R.id.liste_debts_giver);
+        ListView receiver_listView = (ListView) findViewById(R.id.liste_debts_receiver);
+
+        LayoutInflater layoutInflater = getLayoutInflater();
+        ViewGroup header_giver = (ViewGroup) layoutInflater.inflate(R.layout.header_list_view, giver_listView, false);
+        ViewGroup header_receiver = (ViewGroup) layoutInflater.inflate(R.layout.header_list_view, receiver_listView, false);
+
+        giver_listView.addHeaderView(header_giver);
+        receiver_listView.addHeaderView(header_receiver);
+
+        ObjectMapper mapper = new ObjectMapper();
+        Participant participant = new Participant();
+
+        try {
+            participant.setUser(mapper.readValue(getIntent().getStringExtra("currentUser"), User.class));
+            participant.setEvent(mapper.readValue(getIntent().getStringExtra("selectedEvent"), Event.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        new HttpGetDebts().execute(participant, this, giver_listView, receiver_listView);
+
 
     }
 

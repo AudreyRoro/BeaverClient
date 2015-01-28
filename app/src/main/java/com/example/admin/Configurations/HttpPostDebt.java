@@ -1,12 +1,8 @@
 package com.example.admin.Configurations;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.example.admin.beaver.PageEvenement;
-import com.example.admin.beaver.PageListeAchats;
-import com.example.admin.model.Buyer;
+import com.example.admin.model.Event;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -19,26 +15,21 @@ import org.codehaus.jackson.map.ObjectMapper;
 import java.io.IOException;
 
 /**
- * Created by Marianne on 26/01/15.
+ * Created by Marianne on 27/01/15.
  */
-public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
+public class HttpPostDebt extends AsyncTask<Object, String, String> {
 
-    private String url = "http://10.0.2.2:8080/Buyer/add";
-    private Context context;
-    private Intent parentIntent;
-    private Buyer buyer;
+    private String url = "http://10.0.2.2:8080/Debt/add";
 
     @Override
     protected String doInBackground(Object... params) {
-        buyer = (Buyer) params[0];
-        context = (Context) params[1];
-        parentIntent = (Intent) params[2];
-        return sendBuyer(buyer);
-
+        Event event = (Event) params[0];
+        createNewDebt(event);
+        return null;
     }
 
-    protected String sendBuyer (Buyer buyer)
-    {
+    public void createNewDebt(Event event){
+        event.setParticipants(null);
         ObjectMapper mapper = new ObjectMapper();
 
         HttpClient httpclient = new DefaultHttpClient();
@@ -46,7 +37,7 @@ public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
 
         StringEntity se = null;
         try {
-            se = new StringEntity(mapper.writeValueAsString(buyer));
+            se = new StringEntity(mapper.writeValueAsString(event));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,19 +56,5 @@ public class HttpPostBuyer extends AsyncTask<Object, Integer, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return temp;
-    }
-
-    protected void onPostExecute(String result) {
-
-        new HttpPostDebt().execute(buyer.getParticipant().getEvent());
-
-        Intent intent = new Intent(context, PageListeAchats.class);
-        intent.putExtras(parentIntent);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-
-
     }
 }

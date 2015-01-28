@@ -102,6 +102,16 @@ public class PageEvenement extends ActionBarActivity {
                 startActivity(participantIntent);
             }
         });
+
+        Button btn_goToDebt = (Button) findViewById(R.id.btn_goToDebt);
+        btn_goToDebt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent participantIntent = new Intent(PageEvenement.this, PageDette.class);
+                participantIntent.putExtras(getIntent());
+                startActivity(participantIntent);
+            }
+        });
     }
 
 
